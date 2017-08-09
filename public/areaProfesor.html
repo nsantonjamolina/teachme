@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+		<link rel="stylesheet" href="style.css">
+		
+    	<link rel="stylesheet" href="styles/timetablejs.css">
+    	<link rel="stylesheet" href="styles/demo.css">
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout">
+   <header class="mdl-layout__header">
+      <div class="mdl-layout-icon"></div>
+      <div class="mdl-layout__header-row">
+         <span class="mdl-layout__title">Teach me</span>
+         <span class="extraspace"> | </span>
+         <span class="extraspace"> Home </span>
+         <div class="mdl-layout-spacer"></div>
+         <nav class="mdl-navigation">
+		  </nav>
+	   </div>
+</div>		  
+<div id="grid2">
+	
+	<style>
+		#grid2{
+		position: absolute;
+		left: 100px;	
+		margin-top: 90px;
+		}
+	</style>	
+<h3> Formulario alta profesor </h3>	
+<table>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+				<input class="mdl-textfield__input" type="text" id="signupEmail">
+				<label class="mdl-textfield__label" for="sample1">Email</label>
+	  		</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+			<input class="mdl-textfield__input" type="password" id="signupPassword">
+			<label class="mdl-textfield__label" for="sample1">Password</label>
+	  		</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+			<input class="mdl-textfield__input" type="password" id="signupPassword2">
+			<label class="mdl-textfield__label" for="sample1">Repeat Password</label>
+	  		</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherName">
+    		<label class="mdl-textfield__label" for="sample1">Nombre</label>
+  			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+   			<input class="mdl-textfield__input" type="text" id="addTeacherClass">
+   			<label class="mdl-textfield__label" for="sample1">Qué puedes enseñar?</label>
+  			</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+   			<input class="mdl-textfield__input" type="text" id="addTeacherLang">
+   			<label class="mdl-textfield__label" for="sample1">Idioma</label>
+  			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherURL">
+    		<label class="mdl-textfield__label" for="sample1">Url a tu video de presentación</label>
+  			</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherSkype">
+    		<label class="mdl-textfield__label" for="sample1">Skype</label>
+  			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherDescripcion">
+    		<label class="mdl-textfield__label" for="sample1">Descripción</label>
+  			</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+   			<input class="mdl-textfield__input" type="text" id="addTeacherPrice">
+   			<label class="mdl-textfield__label" for="sample1">Precio por clase</label>
+  			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+  			<input type="checkbox" id="checkboxmediaclase" class="mdl-checkbox__input" checked>
+  			<span class="mdl-checkbox__label">Media clase?</span>
+			</label>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+			<input class="mdl-textfield__input" type="file" id="addTeacherPic" onchange="encodeImageFileAsURL(this)"/>
+  			</div>
+		</td>
+	</tr>
+</table>	
+<div class="timetable"></div>	
+	 	
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="addTeacher(document.getElementById('addTeacherName').value,													document.getElementById('addTeacherClass').value,
+document.getElementById('addTeacherLang').value,
+document.getElementById('addTeacherURL').value,																		document.getElementById('signupEmail').value,						 
+document.getElementById('signupPassword').value,													 document.getElementById('signupPassword2').value,
+document.getElementById('addTeacherPic').value,
+document.getElementById('addTeacherPrice').value,
+document.getElementById('checkboxmediaclase').value,																								 
+document.getElementById('addTeacherSkype').value,
+document.getElementById('addTeacherDescripcion').value)">
+  				Button
+</button>
+</div>	
+	<script src="scripts/timetable.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+		<script>
+  	// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyCr2wfyL15rtEmQJsy-mGuc3URImSdNraQ",
+    		authDomain: "teachme-7ed11.firebaseapp.com",
+    		databaseURL: "https://teachme-7ed11.firebaseio.com",
+    		projectId: "teachme-7ed11",
+    		storageBucket: "teachme-7ed11.appspot.com",
+    		messagingSenderId: "147010117223"
+  		};
+  		firebase.initializeApp(config);
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type='text/javascript' src="functions.js"></script>		
+		<script>
+      var timetable = new Timetable();
+
+      timetable.setScope(9,3)
+
+      timetable.addLocations(['Rotterdam', 'Madrid', 'Los Angeles', 'London', 'New York', 'Jakarta', 'Tokyo']);
+
+      timetable.addEvent('Sightseeing', 'Rotterdam', new Date(2015,7,17,9,00), new Date(2015,7,17,11,30), { url: '#' });
+      timetable.addEvent('Zumba', 'Madrid', new Date(2015,7,17,12), new Date(2015,7,17,13), { url: '#' });
+      timetable.addEvent('Zumbu', 'Madrid', new Date(2015,7,17,13,30), new Date(2015,7,17,15), { url: '#' });
+      timetable.addEvent('Lasergaming', 'London', new Date(2015,7,17,17,45), new Date(2015,7,17,19,30), { class: 'vip-only', data: { maxPlayers: 14, gameType: 'Capture the flag' } });
+      timetable.addEvent('All-you-can-eat grill', 'New York', new Date(2015,7,17,21), new Date(2015,7,18,1,30), { url: '#' });
+      timetable.addEvent('Hackathon', 'Tokyo', new Date(2015,7,17,11,30), new Date(2015,7,17,20)); // options attribute is not used for this event
+      timetable.addEvent('Tokyo Hackathon Livestream', 'Los Angeles', new Date(2015,7,17,12,30), new Date(2015,7,17,16,15)); // options attribute is not used for this event
+      timetable.addEvent('Lunch', 'Jakarta', new Date(2015,7,17,9,30), new Date(2015,7,17,11,45), { url: '#' });
+      timetable.addEvent('Cocktails', 'Rotterdam', new Date(2015,7,18,00,00), new Date(2015,7,18,02,00), { class: 'vip-only' });
+
+      var renderer = new Timetable.Renderer(timetable);
+      renderer.draw('.timetable');
+    </script>
+
+	
+</body>
+</html>

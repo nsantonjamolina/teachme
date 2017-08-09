@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+		<link rel="stylesheet" href="style.css">
+		
+	</head>
+	
+	
+<body>
+
+<!--Login dialog -->		
+		
+<dialog id="loginDialog" class="mdl-dialog">
+   <h4 class="mdl-dialog__title">Sign in</h4>
+   <div class="mdl-dialog__content">
+	   <p id="loginError"></p>
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="loginemail">
+    <label class="mdl-textfield__label" for="sample1">Email</label>
+  </div>
+
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="password" id="loginpassword">
+    <label class="mdl-textfield__label" for="sample1">Password</label>
+  </div>
+
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="loginbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Sign in</button>
+	   <!-- MDL Spinner Component -->
+	   <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
+   </div>
+</dialog>
+
+<!--Signup dialog -->		
+		
+<dialog id="signupDialog" class="mdl-dialog">
+   <h4 class="mdl-dialog__title">Sign up</h4>
+   <div class="mdl-dialog__content">
+	   <p id="signupError"></p>
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="signupEmail">
+    <label class="mdl-textfield__label" for="sample1">Email</label>
+  </div>
+
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="password" id="signupPassword">
+    <label class="mdl-textfield__label" for="sample1">Password</label>
+  </div>
+	   	
+<div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="password" id="signupPassword2">
+    <label class="mdl-textfield__label" for="sample1">Repite password</label>
+  </div>
+
+	   
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="signupbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Sign in</button>
+	   <!-- Colored raised button -->
+		<button id="closesignupbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Close</button>
+	   <!-- MDL Spinner Component -->
+	   <div id="signupProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
+   </div>
+</dialog>
+	
+		
+<!--div class="login-cover">
+   <!-- MDL Spinner Component -->
+   <!--div class="page-loader mdl-spinner mdl-js-spinner is-active"></div>
+<!--/div>
+		
+<!--Main page -->		
+		
+<div class="mdl-layout mdl-js-layout">
+   <header class="mdl-layout__header">
+      <div class="mdl-layout-icon"></div>
+      <div class="mdl-layout__header-row">
+         <span class="mdl-layout__title">Teach me</span>
+         <span class="extraspace"> | </span>
+         <span class="extraspace"> Home </span>
+         <div class="mdl-layout-spacer"></div>
+         <nav class="mdl-navigation">
+			
+			 <!-- Accent-colored raised button -->
+			<span class="extraspace"> </span>
+            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Login
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+			 <!-- Accent-colored raised button -->
+			<span class="extraspace"> </span>
+			<a href="areaAlumno.html"> 
+            <button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Intranet
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+			 </a> 
+			 
+			<span class="extraspace"> </span> 
+			 
+            <!-- Accent-colored raised button -->
+			 <span class="extraspace"> </span>
+            	<a href="areaProfesor.html">
+			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+				Hazte profesor!
+            		<i class="button-righ-icon material-icons">account_circle</i>
+            	</button>
+				</a>	
+			<span class="extraspace"> </span> 
+			
+			 <!-- Accent-colored raised button -->	
+            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Sign out
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         </nav>
+		  
+		  <span class="extraspace"> </span> 
+			
+			 <!-- Accent-colored raised button -->	
+            <button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Regístrate
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         </nav>
+      </div>
+   </header>
+   <div class="mdl-layout__drawer">
+   </div>
+</div>	
+	
+	<!--  Body  -->
+<div id="grid" class="mdl-layout mdl-js-layout mdl-grid">		
+	<div id="grid-in" class="mdl-cell mdl-cell--4-col"><p>Content1</p></div>
+  	<div id="grid-in" class="mdl-cell mdl-cell--4-col"><p>Content2</p></div>
+  	<div id="grid-in-right" class="mdl-cell mdl-cell--4-col"></div>
+</div>	
+	
+<div id="buscadorOut" class="mdl-layout mdl-js-layout mdl-grid">
+	<!-- Simple Textfield -->
+	<form action="#">
+  		<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="buscadorIn">
+    		<label class="mdl-textfield__label" for="sample1">Qué quieres aprender?</label>
+			<!-- Raised button -->
+			<button id="btnBusca" class="mdl-button mdl-js-button mdl-button--raised">
+  				Button
+			</button>
+  		</div>
+	</form>
+</div>
+	
+<div id="displayClassesOut" class="mdl-layout mdl-js-layout mdl-grid">
+	<table id = "t" class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'>
+		<thead>
+			<tr>
+				<th class='mdl-data-table__cell--non-numeric'>Nombre</th>      
+				<th class='mdl-data-table__cell--non-numeric'>Enseña</th>
+				<th class='mdl-data-table__cell--non-numeric'>Idioma</th>
+				<th class='mdl-data-table__cell--non-numeric'>Foto</th>
+			</tr>
+		</thead>
+		<tbody id="meteloaqui">
+			
+		</tbody>
+	</table>
+</div>
+
+	
+		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+		<script>
+  	// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyCr2wfyL15rtEmQJsy-mGuc3URImSdNraQ",
+    		authDomain: "teachme-7ed11.firebaseapp.com",
+    		databaseURL: "https://teachme-7ed11.firebaseio.com",
+    		projectId: "teachme-7ed11",
+    		storageBucket: "teachme-7ed11.appspot.com",
+    		messagingSenderId: "147010117223"
+  		};
+  		firebase.initializeApp(config);
+		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type='text/javascript' src="functions.js"></script>		
+		
+				
+	</body>
+	
+	
+</html>

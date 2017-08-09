@@ -1,0 +1,128 @@
+*{
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	outline: none;
+}
+
+.extraspace{
+	margin-left: 10px;
+}
+
+.button-righ-icon{
+	margin-left: 10px;
+}
+
+/* LOGIN SECTION */
+
+#login-cover{
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 800px;
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#loginProgress{
+	display: none;
+}
+
+#loginError{
+	display: none;
+}
+
+#grid{
+	position: absolute;
+	margin-top: 50px;
+}
+
+#grid-in{
+		border-style: dotted;
+		height: 400px;
+}
+
+#buscadorOut{
+	border-style: dotted;
+	position: absolute;
+	top: 600px;
+	z-index: 100;
+	float: left;
+	justify-content: center;
+	height: auto;
+}
+
+#displayClassesOut{
+	border-style: dotted;
+	position: absolute;
+	top: 800px;
+	z-index: 100;
+	clear: both;
+	justify-content: center;
+	height: auto;
+	float: left;
+	clear: left;
+	
+}
+
+#img{
+	background-position: center; 
+	background-repeat: no-repeat; 
+	width: 80px; 
+	height: 60px;
+}
+
+#uiform{
+	position: absolute;
+	top: 1200px;
+	justify-content: center;
+}
+
+#btnBusca{
+	left: 350px;
+
+}
+
+#div1ClasesAlumno{
+	position: absolute;
+	top: 100px;
+	left: 200px;
+	justify-content: center;
+}
+
+#div2ClasesAlumno{
+	position: absolute;
+	top: 250px;
+	left: 200px;
+	justify-content: center;
+}
+
+#div3ClasesAlumno{
+	position: absolute;
+	top: 400px;
+	left: 200px;
+	justify-content: center;
+}
+
+#div4ClasesAlumno{
+	position: absolute;
+	top: 800px;
+	left: 200px;
+	justify-content: center;
+}
+
+#div5ClasesAlumno{
+	position: absolute;
+	top: 900px;
+	left: 200px;
+	justify-content: center;
+}
+
+
+#grid-in-right{
+	background-image:	url("https://pixabay.com/photo-1010818/");
+}
+
