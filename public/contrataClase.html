@@ -2,8 +2,9 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+		<link rel="stylesheet" href="styles/timetablejs.css">
 		<link rel="stylesheet" href="style.css">
 	</head>
 <body>
@@ -13,9 +14,9 @@
    <header class="mdl-layout__header">
       <div class="mdl-layout-icon"></div>
       <div class="mdl-layout__header-row">
-         <span class="mdl-layout__title">Teach me</span>
-         <span class="extraspace"> | </span>
-         <span class="extraspace"> Home </span>
+         <span class="mdl-layout__title" onclick="window.location.href='index.html'">Teach me</span>
+         <span class="extraspace">  </span>
+         <span class="extraspace">  </span>
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
 			
@@ -64,7 +65,7 @@
 	<h6>Prueba 2</h6>
 </div>
 <div id="div3ClasesAlumno">
-	<table class="mdl-data-table mdl-js-data-table">
+	<table id="tablaContrataClase" class="mdl-data-table mdl-js-data-table">
   		<thead>
 			<tr>
       			<th class="mdl-data-table__cell--non-numeric">Nombre</th>
@@ -75,11 +76,12 @@
   		</thead>
   		<tbody>
 			<tr>
-      			<td id=nameProf class="mdl-data-table__cell--non-numeric"></td>
+				<td id=nameProf class="mdl-data-table__cell--non-numeric"><h6></h6></td>
       			<td id="teachProf" class="mdl-data-table__cell--non-numeric"></td>
       			<td id="langProf" class="mdl-data-table__cell--non-numeric"></td>
 				<td  class="mdl-data-table__cell--non-numeric">
 					<iframe width="560" height="315" src="" frameborder="0" id="someFrame" allowfullscreen></iframe>
+					<!--iframe width="560" height="315" src="https://www.youtube.com/embed/yUzdZ4hAFBs" frameborder="0" allowfullscreen></iframe-->
 				</td>
     		</tr>
   		</tbody>
@@ -89,10 +91,15 @@
 <div id="div4ClasesAlumno">
 	<h6>Fecha</h6>
 	<input type="text" id="fecha_id">
-	<button id="contratarClase_" class="mdl-button mdl-js-button mdl-button--raised" onclick="contratarClase(document.getElementById('fecha_id').value)"><h8>Contratar</h8></button>	
+	<!--button id="contratarClase_" class="mdl-button mdl-js-button mdl-button--raised" onclick="contratarClase(document.getElementById('fecha_id').value)"><h8>Contratar</h8></button-->	
+	<button id = "contratarClase" class="mdl-button mdl-js-button mdl-button--raised" onclick="addEventFromHTML('Jueves','10','12')"><h8>Contratar</h8></button-->
 </div>
+	
+<div class="timetable"></div>		
+<span></span>
 
 </body>
+
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 	<script>
   	// Initialize Firebase
@@ -106,6 +113,8 @@
   		};
   		firebase.initializeApp(config);
 	</script>
+
+	<script src="scripts/timetable.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type='text/javascript' src="functions.js"></script>		
 	<script>
@@ -118,11 +127,10 @@
 		var name = snapshot.val().name;
 		var teach = snapshot.val().teach;
 		var videourl = snapshot.val().videourl;
-		console.log(videourl);	
-		// Falta la foto	
 			
-		// Muy importante: He añadido un plugir para poder ver el video
+		// Muy importante: He añadido un plugin para poder ver el video
 		// Si en algún momento se sube a un servidor habrá que revisar este punto
+		// Pluggin: Ignore X-Frame headers	
 				
 		document.getElementById("nameProf").innerHTML = name;
 		document.getElementById("langProf").innerHTML = lang;
@@ -131,12 +139,94 @@
 		});
 	</script>
 	<script>
-		function contratarClase(a){
+		function contratarClase(fecha){
 			
 			var url = window.location.href;
 			var search = url.split("?");
 			var searchfb = search[1].slice(3);
-			contratarClasefunctions("09092017T100000",searchfb);
+			contratarClasefunctions(fecha,searchfb);
 		}
-	</script>	
+	</script>
+	<script>
+
+		// Obtenemos id del profesor
+			var url = window.location.href;
+			var search = url.split("?");
+			var idProfesor = search[1].slice(3);
+		
+		
+		// Función para guardar la clase 
+		function getEventFromDB(idProfesor){
+			var ref = firebase.database().ref('clases/' + idProfesor); 
+			ref.once('value').then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+      		// Traigo snapshot y le saco los datos
+      		// childData will be the actual contents of the child
+      			var location = childSnapshot.val().location;
+				var inicio = childSnapshot.val().inicio;
+				var final = childSnapshot.val().final;
+					
+				alert("chick chikc");
+				console.log("location")	
+				console.log("inicio")
+				console.log("final")
+					
+				timetable.addEvent('Ocupado',location, new Date(2017,8,19,inicio,00), new Date(2017,8,19,final,00));	
+  				})
+				renderer.draw('.timetable');
+		})
+		}
+		
+		
+		// Función para traer la info que hay en BD
+		function addEventFromHTML (dia, horai, minutosi, horaf, minutosf){
+			
+			var month = Date.now().getMonth();
+			Date date = new Date("2017", month, "1", "1", "1");
+			
+			console.log(date.toDateString);
+			
+			var postData = "hola";
+			var currentUser = firebase.auth().currentUser;
+			var uuid = currentUser.uid;
+			
+			// Añadimos a BD clases
+			var ref = firebase.database().ref();	
+	
+				
+			console.log(uuid);
+			
+			
+			// Get a key for a new Post.
+  			var newPostKey = firebase.database().ref().child('/clases/' + idProfesor).push().key;
+  			// Write the new post's data simultaneously in the posts list and the user's post list.
+  			var updates = {};
+  			updates['clases/' + idProfesor +'/'+ newPostKey] = postData;
+  			updates['alumno/' + uuid + '/' + newPostKey] = postData;
+
+  			return firebase.database().ref().update(updates);	
+			
+			// Añadimos a la tabla
+			timetable.addEvent('Ocupado',dia, new Date(2017,8,19,inicio,00), new Date(2017,8,19,fin,00));
+			renderer.draw('.timetable');
+		}
+		
+		
+      	var timetable = new Timetable();
+		
+		
+		
+		timetable.setScope(9,15);
+      	
+		timetable.addLocations(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']);
+		
+		getEventFromDB(idProfesor);
+		
+		var renderer = new Timetable.Renderer(timetable);
+		
+		renderer.draw('.timetable');
+  
+    </script>
+	
+
 </html>

@@ -1,17 +1,24 @@
 /* INICIALIZACIÓN */
-$(document).ready(function(){
-	var user = firebase.auth().currentUser;
-	if(user != null){
-	// paquete de botones logueado 
-	$("#logginButton").hide();
-	$("#registrateButton").hide();	
-	}
-	else{
-	// paquete de botones no logueado
+
+
+
+$(document).ready(
+	function(){
+		var user = firebase.auth().currentUser;
+		if (user !== null) {
+		console.log(user.email)
+		} else {
+			
+		console.log("Sorry, no hay user");	
 		$("#intranetButton").hide();
-		$("#displayClassesOut").hide();
+		$("#logoutButton").hide
+		// Cuando cargo, si no tengo user...cierro el modal
+		$("#logoutButton").click();	
+		}
 	}
-});
+	
+
+);
 
 /* MODAL LOGIN */
 
@@ -22,6 +29,7 @@ $("#logginButton").click(
 		var user = firebase.auth().currentUser;
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user !== null) {
+				
     	// User is signed in.	  
 	  	$(".login-cover").hide();
 	  		
@@ -68,16 +76,19 @@ $("#loginbutton").click(
 			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
        			u = firebase.auth().currentUser;
 				if(u){
-					//console.log(u);
-					//console.log(u.email);	
-					//console.log("Logged user: "+email+" with password "+password);	
-					$("#loginProgress").show();
+										
 					$("#loginbutton").hide();
-					$("#logginButton").hide();
-					$("#intranetButton").show();
 					$("#registrateButton").hide();
+					// Esto va bien
+					$("#logginButton").hide();
+					
+					$("#loginProgress").show();
+					$("#intranetButton").show();
+					$("#logoutButton").show();
+					
+					
 				}
-   			}).catch(function(error) {
+			}).catch(function(error) {
 				// Handle Errors here.
 				$("#loginError").show().text(error.message);	
 				var errorCode = error.code;
@@ -89,6 +100,25 @@ $("#loginbutton").click(
 	
 	}
 );
+
+/* RECOVER PASSWORD*/
+
+$("#recoverPassword").click(
+	function(){
+		var actionCodeSettings = {
+  		
+			};
+		
+		var email = $("#loginemail").val();		
+			
+			firebase.auth().sendPasswordResetEmail(
+    			email).then(function() {
+      		// Password reset email sent.
+				alert("Se ha enviado un correo electrónico a "+email+" para recuperar la contraseña");
+    		}).catch(function(error) {
+				alert("Ha habido algún problema con la recuperación de su contraseña. Contacte con el administrador");
+			});
+	});		
 
 /* LOGOUT PROCESS */
 
@@ -104,10 +134,7 @@ $("#logoutButton").click(
   		// An error happened.
 			alert(error.text);
 		})
-	}
-	
-
-	
+	}	
 );
 
 
@@ -159,7 +186,9 @@ $("#closesignupbutton").click(
 /* CONNECT WITH FIREBASE TO BRING USER'S SEARCH BY TOPIC*/
 	
 $("#btnBusca").click(
-	function(){
+	
+	function(event){
+		  event.preventDefault();
 		var user = firebase.auth().currentUser;
 		if (user != null){
 			
@@ -174,7 +203,9 @@ $("#btnBusca").click(
 				var idioma = snapshot.child("idioma").val();
 				var foto = snapshot.child("foto").val();	
 				if(teachin == teach | teachin == "any" ){	
-			
+
+				// $('#div1-wrapper').load(url + ' #div1'); //note: the space before #div1 is very important
+					
 				$("#meteloaqui").append("<tr><td id="+"trname"+" class='patata mdl-data-table__cell--non-numeric'>"+name+"</td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric'>"+teach+"</td><td class='mdl-data-table__cell--non-numeric'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'><img id="+"img"+" src="+"http://joaquinafernandez.com/wp-content/uploads/2010/09/avatar114.jpg"+"></img></td></tr>");
 				}
 		
@@ -286,25 +317,44 @@ $(document).ready(function(){
 		var id = $("#trname").text();
 		window.location.href = "contrataClase.html?id="+id;
 		
+		
 	});
 })
 
 
-// Método contratar clase: Guarda en BBDD la clase contratada
- 
 function contratarClasefunctions(fecha,idProfesor){
-			
-	// Get a key for a new Post.
-  	var newPostKey = firebase.database().ref().child('prof/clases/').push().key;
+	
+	// Antes de reservar la clase veo si esa clase ya está reservada...Esto cuando le mostremos el usuario correcto al usuario no tiene mucho sentido....¿He perdido la mañana?
+	var reservada = 0;
+	
+	var ref = firebase.database().ref('clases/' + idProfesor); 
+	ref.once('value').
+	then(function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+      	// key will be "ada" the first time and "alan" the second time
+      	var key = childSnapshot.key;
+      	// childData will be the actual contents of the child
+      	var childData = childSnapshot.val();
+			console.log(childData == fecha);
+			console.log(childData +","+ fecha);
+			if(childData == fecha) {reservada = 1;}
+  	})
+		console.log("reservada " + reservada)				   
+		if (reservada == 0){
+		// Get a key for a new Post.
+  		var newPostKey = firebase.database().ref().child('clases/').push().key;
+		console.log("newPostKey "+newPostKey);	
 
-	console.log("newPostKey "+newPostKey);	
+  		// Write the new post's data simultaneously in the posts list and the user's post list.
+  		var updates = {};
+  		updates['clases/'+idProfesor+'/' + newPostKey] = fecha;
+		console.log('clases/'+idProfesor+'/' + newPostKey);
 
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  	var updates = {};
-  	updates['/clases/'+idProfesor+'/' + newPostKey] = fecha;
-	console.log('/clases/'+idProfesor+'/' + newPostKey);
-
-  	return firebase.database().ref().update(updates);
+  		return firebase.database().ref().update(updates);
+	} else {
+		alert("La fecha introducida ya está reservada");
+	}
+	});
 	
 			
 };

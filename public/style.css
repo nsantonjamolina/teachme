@@ -16,14 +16,12 @@
 
 #login-cover{
 	background: #fff;
-	position: fixed;
-	top: 0;
+	top: 0px;
 	left: 0;
 	width: 100%;
-	height: 800px;
-	z-index: 100;
-	display: flex;
-	justify-content: center;
+	height: 1000px;
+	z-index: 1000;
+	justify-content: center;	
 	align-items: center;
 }
 
@@ -41,14 +39,14 @@
 }
 
 #grid-in{
-		border-style: dotted;
+		
 		height: 400px;
 }
 
 #buscadorOut{
-	border-style: dotted;
+	
 	position: absolute;
-	top: 600px;
+	top: 700px;
 	z-index: 100;
 	float: left;
 	justify-content: center;
@@ -56,9 +54,9 @@
 }
 
 #displayClassesOut{
-	border-style: dotted;
+	
 	position: absolute;
-	top: 800px;
+	top: 900px;
 	z-index: 100;
 	clear: both;
 	justify-content: center;
@@ -121,8 +119,19 @@
 	justify-content: center;
 }
 
-
-#grid-in-right{
-	background-image:	url("https://pixabay.com/photo-1010818/");
+#imageheader{
+	background-image: url("writing-notes-idea-conference.jpg");	
+	height:580px;
+	width:1200px;
 }
 
+#tablaContrataClase{
+	left: -100px;
+	width:1000px;
+}
+
+.timetable{
+	position: absolute;
+	top: 1000px;
+	height: 400px;
+}
