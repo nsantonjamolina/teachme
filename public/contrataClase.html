@@ -6,6 +6,8 @@
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
 		<link rel="stylesheet" href="styles/timetablejs.css">
 		<link rel="stylesheet" href="style.css">
+		<script src="moment.js"></script> 
+		<script src="combodate.js"></script> 
 	</head>
 <body>
 <!--Main page -->		
@@ -68,32 +70,36 @@
 	<table id="tablaContrataClase" class="mdl-data-table mdl-js-data-table">
   		<thead>
 			<tr>
-      			<th class="mdl-data-table__cell--non-numeric">Nombre</th>
-      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
-      			<th class="mdl-data-table__cell--non-numeric">Language</th>
-				<th class="mdl-data-table__cell--non-numeric">Video</th>
+      			<th class="mdl-data-table__cell--non-numeric" style="text-align: center;">Nombre</th>
+      			<th class="mdl-data-table__cell--non-numeric" style="text-align: center;">Te voy a enseñar</th>
+      			<th class="mdl-data-table__cell--non-numeric" style="text-align: center;">Language</th>
+				<th class="mdl-data-table__cell--non-numeric" style="text-align: center;">Video</th>
     		</tr>
   		</thead>
   		<tbody>
 			<tr>
-				<td id=nameProf class="mdl-data-table__cell--non-numeric"><h6></h6></td>
-      			<td id="teachProf" class="mdl-data-table__cell--non-numeric"></td>
+				<td id=nameProf class="mdl-data-table__cell--non-numeric" style="text-align: center;"></td>
+      			<td id="teachProf" class="mdl-data-table__cell--non-numeric" style="text-align: center;"></td>
       			<td id="langProf" class="mdl-data-table__cell--non-numeric"></td>
-				<td  class="mdl-data-table__cell--non-numeric">
-					<iframe width="560" height="315" src="" frameborder="0" id="someFrame" allowfullscreen></iframe>
+				<td  id="video" class="mdl-data-table__cell--non-numeric">
 					<!--iframe width="560" height="315" src="https://www.youtube.com/embed/yUzdZ4hAFBs" frameborder="0" allowfullscreen></iframe-->
-				</td>
     		</tr>
   		</tbody>
 	</table>
 </div>
 	
-<div id="div4ClasesAlumno">
+<!--div id="div4ClasesAlumno">
 	<h6>Fecha</h6>
 	<input type="text" id="fecha_id">
 	<!--button id="contratarClase_" class="mdl-button mdl-js-button mdl-button--raised" onclick="contratarClase(document.getElementById('fecha_id').value)"><h8>Contratar</h8></button-->	
-	<button id = "contratarClase" class="mdl-button mdl-js-button mdl-button--raised" onclick="addEventFromHTML('Jueves','10','12')"><h8>Contratar</h8></button-->
-</div>
+	<!--button id = "contratarClase" class="mdl-button mdl-js-button mdl-button--raised" onclick="addEventFromHTML('Jueves','10','12')"><h8>Contratar</h8></button-->
+
+<div id="div4ClasesAlumno">
+	<input type="date"/>
+</div>	
+<div id="div5ClasesAlumno">
+	<span></span>
+</div>		
 	
 <div class="timetable"></div>		
 <span></span>
@@ -123,10 +129,11 @@
 		var search = url.split("?");
 		var searchfb = search[1].slice(3);
 		firebase.database().ref('/prof/' + searchfb).once('value').then(function(snapshot) {
-  		var lang = snapshot.val().lang;
-		var name = snapshot.val().name;
-		var teach = snapshot.val().teach;
-		var videourl = snapshot.val().videourl;
+  			var lang = snapshot.val().lang;
+			var name = snapshot.val().name;
+			var teach = snapshot.val().teach;
+			var videourl = snapshot.val().videourl;
+		 	
 			
 		// Muy importante: He añadido un plugin para poder ver el video
 		// Si en algún momento se sube a un servidor habrá que revisar este punto
@@ -135,17 +142,8 @@
 		document.getElementById("nameProf").innerHTML = name;
 		document.getElementById("langProf").innerHTML = lang;
 		document.getElementById("teachProf").innerHTML = teach;
-		document.getElementById("someFrame").src=videourl;			
+		document.getElementById("video").innerHTML = videourl;
 		});
-	</script>
-	<script>
-		function contratarClase(fecha){
-			
-			var url = window.location.href;
-			var search = url.split("?");
-			var searchfb = search[1].slice(3);
-			contratarClasefunctions(fecha,searchfb);
-		}
 	</script>
 	<script>
 
@@ -165,11 +163,6 @@
       			var location = childSnapshot.val().location;
 				var inicio = childSnapshot.val().inicio;
 				var final = childSnapshot.val().final;
-					
-				alert("chick chikc");
-				console.log("location")	
-				console.log("inicio")
-				console.log("final")
 					
 				timetable.addEvent('Ocupado',location, new Date(2017,8,19,inicio,00), new Date(2017,8,19,final,00));	
   				})
@@ -227,6 +220,10 @@
 		renderer.draw('.timetable');
   
     </script>
-	
+	<script>
+		$(function() {
+    		$( "#datepicker" ).datepicker();
+		});
+	</script>
 
 </html>

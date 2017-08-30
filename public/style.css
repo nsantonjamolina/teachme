@@ -107,15 +107,15 @@
 
 #div4ClasesAlumno{
 	position: absolute;
-	top: 800px;
+	top: 900px;
 	left: 200px;
 	justify-content: center;
 }
 
 #div5ClasesAlumno{
 	position: absolute;
-	top: 900px;
-	left: 200px;
+	top: 1200px;
+	left: 600px;
 	justify-content: center;
 }
 
@@ -135,3 +135,11 @@
 	top: 1000px;
 	height: 400px;
 }
+
+#tablaProfesor{
+	position: absolute;
+	left: 150px;
+	top: 100px;
+}
+
+              

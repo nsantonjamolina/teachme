@@ -101,6 +101,47 @@ $("#loginbutton").click(
 	}
 );
 
+var u;
+
+
+function crearDesdeRegistro(email, password){
+		
+		
+		var email = email;
+		var password = password;
+		
+		if (email != "" & password != ""){
+			
+			
+			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+       			u = firebase.auth().currentUser;
+				if(u){
+										
+					$("#loginbutton").hide();
+					$("#registrateButton").hide();
+					// Esto va bien
+					$("#logginButton").hide();
+					
+					$("#loginProgress").show();
+					$("#intranetButton").show();
+					$("#logoutButton").show();
+					
+					
+				}
+			}).catch(function(error) {
+				// Handle Errors here.
+				$("#loginError").show().text(error.message);	
+				var errorCode = error.code;
+  				var errorMessage = error.message;
+  				console.log(errorCode);
+				console.log(errorMessage);
+			});
+		}
+	
+	};
+
+
+
 /* RECOVER PASSWORD*/
 
 $("#recoverPassword").click(
@@ -128,6 +169,8 @@ $("#logoutButton").click(
   			// Sign-out successful.
 			$("#logginButton").show();
 			$("#registrateButton").show();
+			$("#intranetButton").hide();
+			$("#logoutButton").hide();
 		
 		}, function(error) {
 			
@@ -157,21 +200,25 @@ $("#registrateButton").click(
 
 $("#signupbutton").click(
 	function(){
-		$("#signupProgress").show();
-		$("#signupbutton").hide();
 		var email = $("#signupEmail").val();
 		var password = $("#signupPassword").val();
 		var password2 = $("#signupPassword2").val();	
 		if (password == password2 && password != ""){
-			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+			firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+				$("#signupProgress").show();
+				alert("El usuario se ha creado correctamente");
+				// Si todo ha ido bien, cierra el diálogo
+				crearDesdeRegistro(email, password);
+				$("#closesignupbutton").click();
+			}).catch(function(error) {
+				$("#signupProgress").hide();
   				// Handle Errors here.
-  			var errorCode = error.code;
-  			var errorMessage = error.message;
-			alert(errorCode);
-			alert(errorMessage);	
+  				var errorCode = error.code;
+  				var errorMessage = error.message;
+				alert(errorCode);
+				alert(errorMessage);		
 			});
 		}
-		alert("OK!");		
 	}
 );		
 
@@ -188,25 +235,26 @@ $("#closesignupbutton").click(
 $("#btnBusca").click(
 	
 	function(event){
-		  event.preventDefault();
+		event.preventDefault();
 		var user = firebase.auth().currentUser;
 		if (user != null){
 			
-			var teachin = $("#buscadorIn").val();
+			var teachin = ($("#buscadorIn").val()).toLowerCase();
 			var rootRef = firebase.database().ref().child("prof");
 			//Improve: Don't retrieve all the data!	
 			
 			
 			rootRef.on('child_added', function(snapshot){
-				var name = snapshot.key;
+				var key = snapshot.key;
+				var name = snapshot.child("name").val();;
 				var teach = snapshot.child("teach").val();
-				var idioma = snapshot.child("idioma").val();
+				var idioma = snapshot.child("lang").val();
 				var foto = snapshot.child("foto").val();	
 				if(teachin == teach | teachin == "any" ){	
+					console.log(key);
 
-				// $('#div1-wrapper').load(url + ' #div1'); //note: the space before #div1 is very important
 					
-				$("#meteloaqui").append("<tr><td id="+"trname"+" class='patata mdl-data-table__cell--non-numeric'>"+name+"</td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric'>"+teach+"</td><td class='mdl-data-table__cell--non-numeric'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'><img id="+"img"+" src="+"http://joaquinafernandez.com/wp-content/uploads/2010/09/avatar114.jpg"+"></img></td></tr>");
+				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'>"+name+"</td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+teach+"</td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'>"+foto+"</img></td></tr>");
 				}
 		
 			}); 	
@@ -216,10 +264,9 @@ $("#btnBusca").click(
 		} else {
 			// Nos alerta y nos lanza el diálogo de login
 			alert("¡Debes ingresar para poder contratar tu clase!");
-	//		$("#logginButton").click();
 		}
 	
-	});
+});
 
 /* CONNECT WITH FIREBASE TO BRING INFO FROM SELECTED*/
 
@@ -250,8 +297,8 @@ function addTeacher(name, teach, lang, videourl, email, password, password2, fot
 	// A post entry.
   	var postData = {
     name: name,
-    teach: teach,
-    idioma: lang,
+    teach: teach.toLowerCase(),
+    lang: lang,
 	password: password, 
 	videourl : videourl,
 	precio: precio,
@@ -269,9 +316,23 @@ function addTeacher(name, teach, lang, videourl, email, password, password2, fot
   	var updates = {};
   	updates['/prof/' + newPostKey] = postData;
 
-  	return firebase.database().ref().update(updates);
-	alert("Enhorabuena, tu perfil ha sido creado correctamente!");
+  	firebase.database().ref().update(updates).then(function(){
+		
+		console.log("entro en el signupDialog");
+  		var dialog = document.querySelector('#profesorRegistrado');
+  		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+		dialog.showModal();	
+	
+	
+	
+	}
+												   
+	);		
 }
+	
+
 
 /* ADD TEACHER'S PHOTO */
 
@@ -311,52 +372,17 @@ function encodeImageFileAsURL(element) {
 
 /* LAUNCH TEACHER AREA AND PASS ID*/
 
-$(document).ready(function(){
-	
-	$("#t").delegate("td.patata", "click", function(){
-		var id = $("#trname").text();
-		window.location.href = "contrataClase.html?id="+id;
-		
-		
+
+
+function clickFilaProfesor(clicked_id)
+{
+	$("#tablaContrataClase").delegate("td.patata", "click", function(){
+		var id = clicked_id;
+		window.location.href = "contrataClase.html?id="+id;		
 	});
-})
+}
 
 
-function contratarClasefunctions(fecha,idProfesor){
-	
-	// Antes de reservar la clase veo si esa clase ya está reservada...Esto cuando le mostremos el usuario correcto al usuario no tiene mucho sentido....¿He perdido la mañana?
-	var reservada = 0;
-	
-	var ref = firebase.database().ref('clases/' + idProfesor); 
-	ref.once('value').
-	then(function(snapshot) {
-		snapshot.forEach(function(childSnapshot) {
-      	// key will be "ada" the first time and "alan" the second time
-      	var key = childSnapshot.key;
-      	// childData will be the actual contents of the child
-      	var childData = childSnapshot.val();
-			console.log(childData == fecha);
-			console.log(childData +","+ fecha);
-			if(childData == fecha) {reservada = 1;}
-  	})
-		console.log("reservada " + reservada)				   
-		if (reservada == 0){
-		// Get a key for a new Post.
-  		var newPostKey = firebase.database().ref().child('clases/').push().key;
-		console.log("newPostKey "+newPostKey);	
 
-  		// Write the new post's data simultaneously in the posts list and the user's post list.
-  		var updates = {};
-  		updates['clases/'+idProfesor+'/' + newPostKey] = fecha;
-		console.log('clases/'+idProfesor+'/' + newPostKey);
-
-  		return firebase.database().ref().update(updates);
-	} else {
-		alert("La fecha introducida ya está reservada");
-	}
-	});
-	
-			
-};
 	
 

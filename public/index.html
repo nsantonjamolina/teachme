@@ -38,7 +38,7 @@
 		<button id="loginbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 			Sign in</button>
 	</div>
-	<div>
+	<div class="mdl-dialog__actions">
 	   <!-- Colored raised button -->
 		<button id="recoverPassword" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 			Olvidé mi contraseña</button>
@@ -167,23 +167,23 @@
     		<label class="mdl-textfield__label" for="sample1">Qué quieres aprender?</label>
 			<!-- Raised button -->
 			<button id="btnBusca" class="mdl-button mdl-js-button mdl-button--raised">
-  				Button
+  				Buscar
 			</button>
   		</div>
 	</form>
 </div>
 	
 <div id="displayClassesOut" class="mdl-layout mdl-js-layout mdl-grid">
-	<table id = "t" class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'>
+	<table id = "tablaContrataClase" class='mdl-data-table mdl-js-data-table mdl-shadow--2dp'>
 		<thead>
 			<tr>
-				<th class='mdl-data-table__cell--non-numeric'>Nombre</th>      
-				<th class='mdl-data-table__cell--non-numeric'>Enseña</th>
-				<th class='mdl-data-table__cell--non-numeric'>Idioma</th>
+				<th class='mdl-data-table__cell--non-numeric' style="text-align: center;">Nombre</th>   
+				<th class='mdl-data-table__cell--non-numeric' style="text-align: center;">Enseña</th>
+				<th class='mdl-data-table__cell--non-numeric' style="text-align: center;">Idioma</th>
 				<th class='mdl-data-table__cell--non-numeric'>Foto</th>
 			</tr>
 		</thead>
-		<tbody id="meteloaqui">
+		<tbody id="tabla">
 			
 		</tbody>
 	</table>

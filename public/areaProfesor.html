@@ -21,15 +21,36 @@
 		  </nav>
 	   </div>
 </div>		  
-<div id="grid2">
+
+<dialog id="profesorRegistrado" class="mdl-dialog">
+   <h4 class="mdl-dialog__title">¡Listo!</h4>
+   <div class="mdl-dialog__content">
+	   <p id="loginError"></p>
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+	  <h5>Se ha dado de alta correctamente!</h5>
+  </div>
+
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    
+  </div>
+
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="profesorRegistradoButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Volver</button>
+	</div>
+</dialog>
+
 	
-	<style>
-		#grid2{
-		position: absolute;
-		left: 100px;	
-		margin-top: 90px;
-		}
-	</style>	
+
+<div id="tablaProfesor">	
+	
 <h3> Formulario alta profesor </h3>	
 <table>
 	<tr>
@@ -115,8 +136,7 @@
   			</div>
 		</td>
 	</tr>
-</table>	
-<div class="timetable"></div>	
+</table>		
 	 	
 	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="addTeacher(document.getElementById('addTeacherName').value,													document.getElementById('addTeacherClass').value,
 document.getElementById('addTeacherLang').value,
@@ -124,11 +144,9 @@ document.getElementById('addTeacherURL').value,																		document.getEle
 document.getElementById('signupPassword').value,													 document.getElementById('signupPassword2').value,
 document.getElementById('addTeacherPic').value,
 document.getElementById('addTeacherPrice').value,
-document.getElementById('checkboxmediaclase').value,																								 
+document.getElementById('checkboxmediaclase').value,																	
 document.getElementById('addTeacherSkype').value,
-document.getElementById('addTeacherDescripcion').value)">
-  				Button
-</button>
+document.getElementById('addTeacherDescripcion').value)">Guardar</button>
 </div>	
 	<script src="scripts/timetable.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
@@ -145,28 +163,11 @@ document.getElementById('addTeacherDescripcion').value)">
   		firebase.initializeApp(config);
 		</script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type='text/javascript' src="functions.js"></script>		
+		<script type='text/javascript' src="functions.js"></script>	
 		<script>
-      var timetable = new Timetable();
-
-      timetable.setScope(9,3)
-
-      timetable.addLocations(['Rotterdam', 'Madrid', 'Los Angeles', 'London', 'New York', 'Jakarta', 'Tokyo']);
-
-      timetable.addEvent('Sightseeing', 'Rotterdam', new Date(2015,7,17,9,00), new Date(2015,7,17,11,30), { url: '#' });
-      timetable.addEvent('Zumba', 'Madrid', new Date(2015,7,17,12), new Date(2015,7,17,13), { url: '#' });
-      timetable.addEvent('Zumbu', 'Madrid', new Date(2015,7,17,13,30), new Date(2015,7,17,15), { url: '#' });
-      timetable.addEvent('Lasergaming', 'London', new Date(2015,7,17,17,45), new Date(2015,7,17,19,30), { class: 'vip-only', data: { maxPlayers: 14, gameType: 'Capture the flag' } });
-      timetable.addEvent('All-you-can-eat grill', 'New York', new Date(2015,7,17,21), new Date(2015,7,18,1,30), { url: '#' });
-      timetable.addEvent('Hackathon', 'Tokyo', new Date(2015,7,17,11,30), new Date(2015,7,17,20)); // options attribute is not used for this event
-      timetable.addEvent('Tokyo Hackathon Livestream', 'Los Angeles', new Date(2015,7,17,12,30), new Date(2015,7,17,16,15)); // options attribute is not used for this event
-      timetable.addEvent('Lunch', 'Jakarta', new Date(2015,7,17,9,30), new Date(2015,7,17,11,45), { url: '#' });
-      timetable.addEvent('Cocktails', 'Rotterdam', new Date(2015,7,18,00,00), new Date(2015,7,18,02,00), { class: 'vip-only' });
-
-      var renderer = new Timetable.Renderer(timetable);
-      renderer.draw('.timetable');
-    </script>
-
+			$("#profesorRegistradoButton").click(function(){window.location.href = "index.html";}	
+		);
+		</script>
 	
 </body>
 </html>
