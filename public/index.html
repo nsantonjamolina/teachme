@@ -205,7 +205,18 @@
 		</script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script type='text/javascript' src="functions.js"></script>		
-		
+		<script>
+
+			$("#btnBusca").click(
+				function(){
+					var user = firebase.auth().currentUser;
+					if (user !== null) {
+						$("#tablaContrataClase").show();
+					}
+				}
+			);
+				
+		</script>
 				
 	</body>
 </html>

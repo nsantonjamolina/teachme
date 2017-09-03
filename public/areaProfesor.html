@@ -62,25 +62,25 @@
 		</td>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherName">
+    		<label class="mdl-textfield__label" for="sample1">Nombre</label>
+  			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
 			<input class="mdl-textfield__input" type="password" id="signupPassword">
 			<label class="mdl-textfield__label" for="sample1">Password</label>
 	  		</div>
 		</td>
-	</tr>
-	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
 			<input class="mdl-textfield__input" type="password" id="signupPassword2">
 			<label class="mdl-textfield__label" for="sample1">Repeat Password</label>
 	  		</div>
 		</td>
-		<td>
-			<div class="mdl-textfield mdl-js-textfield">
-    		<input class="mdl-textfield__input" type="text" id="addTeacherName">
-    		<label class="mdl-textfield__label" for="sample1">Nombre</label>
-  			</div>
-		</td>
-	</tr>
+			</tr>
 	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
@@ -112,24 +112,18 @@
 	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
-    		<input class="mdl-textfield__input" type="text" id="addTeacherDescripcion">
-    		<label class="mdl-textfield__label" for="sample1">Descripción</label>
-  			</div>
-		</td>
-		<td>
-			<div class="mdl-textfield mdl-js-textfield">
-   			<input class="mdl-textfield__input" type="text" id="addTeacherPrice">
+   			<input class="mdl-textfield__input" type="number"  min="1" max="500" id="addTeacherPrice">
    			<label class="mdl-textfield__label" for="sample1">Precio por clase</label>
   			</div>
 		</td>
-	</tr>
-	<tr>
 		<td>
 			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
   			<input type="checkbox" id="checkboxmediaclase" class="mdl-checkbox__input" checked>
   			<span class="mdl-checkbox__label">Media clase?</span>
 			</label>
 		</td>
+	</tr>
+	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
 			<input class="mdl-textfield__input" type="file" id="addTeacherPic" onchange="encodeImageFileAsURL(this)"/>
@@ -145,8 +139,7 @@ document.getElementById('signupPassword').value,													 document.getElemen
 document.getElementById('addTeacherPic').value,
 document.getElementById('addTeacherPrice').value,
 document.getElementById('checkboxmediaclase').value,																	
-document.getElementById('addTeacherSkype').value,
-document.getElementById('addTeacherDescripcion').value)">Guardar</button>
+document.getElementById('addTeacherSkype').value)">Guardar</button>
 </div>	
 	<script src="scripts/timetable.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>

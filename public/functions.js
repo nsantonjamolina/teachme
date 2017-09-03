@@ -10,6 +10,7 @@ $(document).ready(
 		} else {
 			
 		console.log("Sorry, no hay user");	
+		$("#tablaContrataClase").hide();	
 		$("#intranetButton").hide();
 		$("#logoutButton").hide
 		// Cuando cargo, si no tengo user...cierro el modal
@@ -240,21 +241,24 @@ $("#btnBusca").click(
 		if (user != null){
 			
 			var teachin = ($("#buscadorIn").val()).toLowerCase();
+			console.log()
 			var rootRef = firebase.database().ref().child("prof");
 			//Improve: Don't retrieve all the data!	
 			
 			
 			rootRef.on('child_added', function(snapshot){
 				var key = snapshot.key;
-				var name = snapshot.child("name").val();;
+				//var name = capitalizeFirstLetter(snapshot.child("name").val());
+				//var teach = capitalizeFirstLetter(snapshot.child("teach").val());
+				var name = snapshot.child("name").val();
 				var teach = snapshot.child("teach").val();
 				var idioma = snapshot.child("lang").val();
 				var foto = snapshot.child("foto").val();	
 				if(teachin == teach | teachin == "any" ){	
-					console.log(key);
+					
 
 					
-				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'>"+name+"</td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+teach+"</td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'>"+foto+"</img></td></tr>");
+				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+name+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+teach+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'>"+foto+"</img></td></tr>");
 				}
 		
 			}); 	
@@ -267,6 +271,12 @@ $("#btnBusca").click(
 		}
 	
 });
+
+/* Pone la primera letra en mayúsculas */
+
+function capitalizeFirstLetter(string) {
+    		return string.charAt(0).toUpperCase() + string.slice(1);
+		}
 
 /* CONNECT WITH FIREBASE TO BRING INFO FROM SELECTED*/
 
@@ -291,19 +301,23 @@ function setNameProf(id){
 	
 /* ADD A TEACHER  */
 
-function addTeacher(name, teach, lang, videourl, email, password, password2, foto, precio, mediaclase, skype, descripcion) {
+function addTeacher(name, teach, lang, videourl, email, password, password2, foto, precio, mediaclase, skype) {
 	
   	
+	if(!videourl.includes("embed")){
+		videourl = "https://www.youtube.com/embed/".concat(videourl.slice(videourl.length-11,videourl.length));
+	}
+		
 	// A post entry.
   	var postData = {
+	email: email,	
     name: name,
     teach: teach.toLowerCase(),
     lang: lang,
 	password: password, 
 	videourl : videourl,
 	precio: precio,
-	mediaclase: mediaclase,
-	descripcion: descripcion	
+	mediaclase: mediaclase,	
   	};
 	addTeacherFoto(foto)  
 
@@ -377,8 +391,16 @@ function encodeImageFileAsURL(element) {
 function clickFilaProfesor(clicked_id)
 {
 	$("#tablaContrataClase").delegate("td.patata", "click", function(){
-		var id = clicked_id;
-		window.location.href = "contrataClase.html?id="+id;		
+		var id = clicked_id
+
+		return firebase.auth().onAuthStateChanged(function(user) {
+  		if (user) {
+    		window.location.href = "contrataClase.html?id="+id;		
+  		} else {
+    		alert("Debes estar registrado");
+  		}
+});
+		
 	});
 }
 

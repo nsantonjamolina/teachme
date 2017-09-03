@@ -100,7 +100,7 @@
 
 #div3ClasesAlumno{
 	position: absolute;
-	top: 400px;
+	top: 700px;
 	left: 200px;
 	justify-content: center;
 }
@@ -126,13 +126,19 @@
 }
 
 #tablaContrataClase{
-	left: -100px;
+	
+	width:1000px;
+}
+
+#tablaContrataClase2{
+	
 	width:1000px;
 }
 
 .timetable{
 	position: absolute;
-	top: 1000px;
+	top: 800px;
+	left: 200px;
 	height: 400px;
 }
 

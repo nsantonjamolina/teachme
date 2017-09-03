@@ -11,7 +11,7 @@
 	</head>
 <body>
 <!--Main page -->		
-		
+<firebase-auth id="auth" app-name="teachme-7ed11"></firebase-auth>		
 <div class="mdl-layout mdl-js-layout">
    <header class="mdl-layout__header">
       <div class="mdl-layout-icon"></div>
@@ -21,39 +21,32 @@
          <span class="extraspace">  </span>
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
-			
-			 <!-- Accent-colored raised button -->
-			<span class="extraspace"> </span>
-            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Login
-            <i class="button-righ-icon material-icons">account_circle</i>
-            </button>
-			<span class="extraspace"> </span> 
 			 
-            <!-- Accent-colored raised button -->
-			 <span class="extraspace"> </span>
-            	<a href="hp.html">
-			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-				Hazte profesor!
-            		<i class="button-righ-icon material-icons">account_circle</i>
-            	</button>
-				</a>	
-			<span class="extraspace"> </span> 
-			
-			 <!-- Accent-colored raised button -->	
-            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Sign out
-            <i class="button-righ-icon material-icons">account_circle</i>
-            </button>
-         </nav>
-		  
-		  <span class="extraspace"> </span> 
-			
-			 <!-- Accent-colored raised button -->	
-            <button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Regístrate
-            <i class="button-righ-icon material-icons">account_circle</i>
-            </button>
+<span class="extraspace"> </span>
+<a href="areaAlumno.html"> 
+	<button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+Intranet
+		<i class="button-righ-icon material-icons">account_circle</i>
+	</button>
+</a> 
+<!-- Accent-colored raised button -->
+<span class="extraspace"> </span>
+<a href="hp.html">
+	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+Hazte profesor!
+		<i class="button-righ-icon material-icons">account_circle</i>
+	</button>
+</a>	
+<span class="extraspace"> </span> 
+<!-- Accent-colored raised button -->	
+<a href ="index.html"></a>
+	<button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+Sign out
+		<i class="button-righ-icon material-icons">account_circle</i>
+	</button>
+</a>
+         
+            
          </nav>
       </div>
    </header>
@@ -61,13 +54,12 @@
    </div>
 </div>
 <div id="div1ClasesAlumno">
-	<h6>Prueba 1</h6>
+	<h6>Conoce a tu profesor</h6>
+	<h7>Revisa el calendario, elige un fecha y haz click en guardar</h7>
 </div>
+
 <div id="div2ClasesAlumno">
-	<h6>Prueba 2</h6>
-</div>
-<div id="div3ClasesAlumno">
-	<table id="tablaContrataClase" class="mdl-data-table mdl-js-data-table">
+	<table id="tablaContrataClase2" class="mdl-data-table mdl-js-data-table">
   		<thead>
 			<tr>
       			<th class="mdl-data-table__cell--non-numeric" style="text-align: center;">Nombre</th>
@@ -78,7 +70,7 @@
   		</thead>
   		<tbody>
 			<tr>
-				<td id=nameProf class="mdl-data-table__cell--non-numeric" style="text-align: center;"></td>
+				<td id=nameProf class="mdl-data-table__cell--non-numeric" style="text-align: center;"><h6></h6></td>
       			<td id="teachProf" class="mdl-data-table__cell--non-numeric" style="text-align: center;"></td>
       			<td id="langProf" class="mdl-data-table__cell--non-numeric"></td>
 				<td  id="video" class="mdl-data-table__cell--non-numeric">
@@ -88,18 +80,19 @@
 	</table>
 </div>
 	
-<!--div id="div4ClasesAlumno">
-	<h6>Fecha</h6>
-	<input type="text" id="fecha_id">
-	<!--button id="contratarClase_" class="mdl-button mdl-js-button mdl-button--raised" onclick="contratarClase(document.getElementById('fecha_id').value)"><h8>Contratar</h8></button-->	
-	<!--button id = "contratarClase" class="mdl-button mdl-js-button mdl-button--raised" onclick="addEventFromHTML('Jueves','10','12')"><h8>Contratar</h8></button-->
-
-<div id="div4ClasesAlumno">
+<div id="div3ClasesAlumno">
 	<input type="date"/>
-</div>	
-<div id="div5ClasesAlumno">
 	<span></span>
-</div>		
+	<!-- Accent-colored raised button with ripple -->
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  		Guardar
+	</button>
+	<span></span>
+	<span></span>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  		Volver
+	</button>
+</div>	
 	
 <div class="timetable"></div>		
 <span></span>
@@ -130,20 +123,20 @@
 		var searchfb = search[1].slice(3);
 		firebase.database().ref('/prof/' + searchfb).once('value').then(function(snapshot) {
   			var lang = snapshot.val().lang;
-			var name = snapshot.val().name;
-			var teach = snapshot.val().teach;
+			var name = capitalizeFirstLetter(snapshot.val().name);
+			var teach = capitalizeFirstLetter(snapshot.val().teach);
 			var videourl = snapshot.val().videourl;
 		 	
-			
-		// Muy importante: He añadido un plugin para poder ver el video
-		// Si en algún momento se sube a un servidor habrá que revisar este punto
-		// Pluggin: Ignore X-Frame headers	
-				
+					
 		document.getElementById("nameProf").innerHTML = name;
 		document.getElementById("langProf").innerHTML = lang;
 		document.getElementById("teachProf").innerHTML = teach;
 		document.getElementById("video").innerHTML = videourl;
 		});
+		
+		function capitalizeFirstLetter(string) {
+    		return string.charAt(0).toUpperCase() + string.slice(1);
+		}
 	</script>
 	<script>
 
@@ -151,7 +144,7 @@
 			var url = window.location.href;
 			var search = url.split("?");
 			var idProfesor = search[1].slice(3);
-		
+		console.log(idProfesor);
 		
 		// Función para guardar la clase 
 		function getEventFromDB(idProfesor){
@@ -164,13 +157,16 @@
 				var inicio = childSnapshot.val().inicio;
 				var final = childSnapshot.val().final;
 					
-				timetable.addEvent('Ocupado',location, new Date(2017,8,19,inicio,00), new Date(2017,8,19,final,00));	
-  				})
+				//timetable.addEvent('Ocupado',location, new Date(2017,8,19,inicio,00), new Date(2017,8,19,final,00));	
+  				//var param = "'Ocupado',Lunes, new Date(2017,8,19,10,00), new Date(2017,8,19,11,00)";
+				timetable.addEvent(param);
 				renderer.draw('.timetable');
+				})
+				
 		})
 		}
 		
-		
+		/*
 		// Función para traer la info que hay en BD
 		function addEventFromHTML (dia, horai, minutosi, horaf, minutosf){
 			
@@ -203,7 +199,7 @@
 			timetable.addEvent('Ocupado',dia, new Date(2017,8,19,inicio,00), new Date(2017,8,19,fin,00));
 			renderer.draw('.timetable');
 		}
-		
+		*/
 		
       	var timetable = new Timetable();
 		
@@ -213,17 +209,24 @@
       	
 		timetable.addLocations(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']);
 		
-		getEventFromDB(idProfesor);
+	//	getEventFromDB(idProfesor);
+		
+		//var param = "'Ocupado',Lunes, new Date(2017,8,19,10,00), new Date(2017,8,19,11,00)";
+				timetable.addEvent('Ocupado','Lunes', new Date(2017,8,19,10,00), new Date(2017,8,19,11,00));
+				
 		
 		var renderer = new Timetable.Renderer(timetable);
 		
 		renderer.draw('.timetable');
   
     </script>
-	<script>
+	<!--script>
 		$(function() {
     		$( "#datepicker" ).datepicker();
 		});
+	</script-->
+	<script>
+		
 	</script>
 
-</html>
+</html>	
