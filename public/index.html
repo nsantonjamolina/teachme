@@ -51,7 +51,7 @@
 <!--Signup dialog -->		
 		
 <dialog id="signupDialog" class="mdl-dialog">
-   <h4 class="mdl-dialog__title">Sign up</h4>
+   <h4 class="mdl-dialog__title">Regístrate</h4>
    <div class="mdl-dialog__content">
 	   <p id="signupError"></p>
 	   
@@ -157,20 +157,116 @@
 	<!--  Body  -->
 
 <div id="imageheader" class="mdl-layout mdl-js-layout mdl-grid">		
-</div>	
-	
+</div>
+
+<!-- Square card -->
+<style>
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background:
+    url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+}
+</style>
+
+<div id ="card1" class="demo-card-square mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Regístrate</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Aenan convallis.
+  </div>
+  <!--div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      View Updates
+    </a>
+  </div-->
+</div>
+
+<div id ="card2" class="demo-card-square mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Busca un profesor</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Aenan convallis.
+  </div>
+  <!--div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      View Updates
+    </a>
+  </div-->
+</div>
+
+<div id ="card3" class="demo-card-square mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Programa una clase</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Aenan convallis.
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a onclick="empezar()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Empezar
+    </a>
+  </div>
+</div>
+
+		
+
 <div id="buscadorOut" class="mdl-layout mdl-js-layout mdl-grid">
 	<!-- Simple Textfield -->
-	<form action="#">
-  		<div class="mdl-textfield mdl-js-textfield">
-    		<input class="mdl-textfield__input" type="text" id="buscadorIn">
+			
+
+	<!--form action="#"-->
+<tr>
+	<td>
+  		<div id="buscadorOut1" class="mdl-textfield mdl-js-textfield">
+		
+    		<input class="mdl-textfield__input" type="text" id="buscadorText">
     		<label class="mdl-textfield__label" for="sample1">Qué quieres aprender?</label>
 			<!-- Raised button -->
+		</div>	
+	</td>
+	<td>	
+		<div id="buscadorOut2" class="mdl-textfield mdl-js-textfield">
 			<button id="btnBusca" class="mdl-button mdl-js-button mdl-button--raised">
   				Buscar
 			</button>
   		</div>
-	</form>
+	</td>
+	<td>
+	<div id="buscadorOut3" class="mdl-textfield mdl-js-textfield">
+			<style>
+				select{
+					font-size: 14px;
+				}
+			</style>
+		
+			<select  name="OS" id="buscadorSelect">
+   				<option selected value="0"> Elige una materia </option>
+       			<!--optgroup label="Música"--> 
+       			<option value="Música">Música</option> 
+       			<option value="Deporte">Deporte</option> 
+       			<option value="Percusión">Percusión</option> 
+       			<option value="Sistemas operativos">Sistemas operativos</option> 
+       			<option value="Programación">Programación</option> 
+       			<option value="Ofimática">Ofimática</option> 
+				<optgroup label="Deporte"> 
+       			<option value="Yoga">Yoga</option> 
+       			<option value="Entrenamiento personal">Entrenamiento personal</option> 
+       			<option value="Aeróbic">Aeróbic</option> 
+   				</optgroup> 
+			</select>
+	</div>
+</td>
+</tr>		
+	<!--/form-->
 </div>
 	
 <div id="displayClassesOut" class="mdl-layout mdl-js-layout mdl-grid">
@@ -216,6 +312,17 @@
 				}
 			);
 				
+		</script>
+		<script>
+			function empezar() {
+				console.log("entro en el signupDialog");
+  				var dialog = document.querySelector('#signupDialog');
+  				if (! dialog.showModal) {
+      				dialogPolyfill.registerDialog(dialog);
+    			}
+				$("#signupProgress").hide();
+				dialog.showModal();	
+			}
 		</script>
 				
 	</body>

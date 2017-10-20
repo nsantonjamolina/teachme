@@ -44,19 +44,31 @@
 }
 
 #buscadorOut{
-	
 	position: absolute;
-	top: 700px;
+	top: 1200px;
 	z-index: 100;
 	float: left;
 	justify-content: center;
 	height: auto;
 }
 
+#buscadorOut1{
+	top: 5px;
+	left: 125px;
+}
+#buscadorOut2{
+	top: 5px;
+	left: 400px;
+}
+#buscadorOut3{
+	top: 5px;
+	right: 150px;
+}
+
 #displayClassesOut{
 	
 	position: absolute;
-	top: 900px;
+	top: 1400px;
 	z-index: 100;
 	clear: both;
 	justify-content: center;
@@ -79,10 +91,6 @@
 	justify-content: center;
 }
 
-#btnBusca{
-	left: 350px;
-
-}
 
 #div1ClasesAlumno{
 	position: absolute;
@@ -100,14 +108,14 @@
 
 #div3ClasesAlumno{
 	position: absolute;
-	top: 700px;
+	top: 750px;
 	left: 200px;
 	justify-content: center;
 }
 
 #div4ClasesAlumno{
 	position: absolute;
-	top: 900px;
+	top: 1300px;
 	left: 200px;
 	justify-content: center;
 }
@@ -148,4 +156,21 @@
 	top: 100px;
 }
 
+#card1{
+	position: absolute;
+	top: 700px;
+	left: 150px;
+}
+
+#card2{
+	position: absolute;
+	top: 700px;
+	left: 500px;
+}
+
+#card3{
+	position: absolute;
+	top: 700px;
+	left: 850px;
+}
               

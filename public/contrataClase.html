@@ -81,15 +81,17 @@ Sign out
 </div>
 	
 <div id="div3ClasesAlumno">
-	<input type="date"/>
-	<span></span>
+	<style>
+		input {left: 100px; }
+		button {left: 400px; }
+
+	</style>
+	<input id="1" type="date"/>
 	<!-- Accent-colored raised button with ripple -->
-	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+	<button id="2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   		Guardar
 	</button>
-	<span></span>
-	<span></span>
-	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+	<button id="3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   		Volver
 	</button>
 </div>	
@@ -226,6 +228,13 @@ Sign out
 		});
 	</script-->
 	<script>
+		
+		
+		window.onload = function() {
+      		initApp();
+    		if (displayName != null){"tengo user"};
+    		if (user.displayName != null){"tengo mucho user"};
+		};
 		
 	</script>
 

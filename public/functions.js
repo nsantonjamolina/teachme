@@ -59,7 +59,7 @@ $("#logginButton").click(
 });
 }
 );
-		
+
 
 /* LOGIN PROCESS */
 var u;
@@ -240,7 +240,9 @@ $("#btnBusca").click(
 		var user = firebase.auth().currentUser;
 		if (user != null){
 			
-			var teachin = ($("#buscadorIn").val()).toLowerCase();
+			var buscadorText = ($("#buscadorText").val()).toLowerCase();
+			var buscadorSelect = ($("#buscadorSelect").val()).toLowerCase();
+			
 			console.log()
 			var rootRef = firebase.database().ref().child("prof");
 			//Improve: Don't retrieve all the data!	
@@ -248,13 +250,12 @@ $("#btnBusca").click(
 			
 			rootRef.on('child_added', function(snapshot){
 				var key = snapshot.key;
-				//var name = capitalizeFirstLetter(snapshot.child("name").val());
-				//var teach = capitalizeFirstLetter(snapshot.child("teach").val());
 				var name = snapshot.child("name").val();
 				var teach = snapshot.child("teach").val();
 				var idioma = snapshot.child("lang").val();
+				var materia = snapshot.child("materia").val();
 				var foto = snapshot.child("foto").val();	
-				if(teachin == teach | teachin == "any" ){	
+				if(buscadorText == teach | buscadorText == "any" | buscadorSelect == materia ){	
 					
 
 					
@@ -301,7 +302,7 @@ function setNameProf(id){
 	
 /* ADD A TEACHER  */
 
-function addTeacher(name, teach, lang, videourl, email, password, password2, foto, precio, mediaclase, skype) {
+function addTeacher(name, teach,  materia, lang, videourl, email, password, password2, foto, precio, mediaclase, skype) {
 	
   	
 	if(!videourl.includes("embed")){
@@ -314,6 +315,7 @@ function addTeacher(name, teach, lang, videourl, email, password, password2, fot
     name: name,
     teach: teach.toLowerCase(),
     lang: lang,
+	materia: materia,	
 	password: password, 
 	videourl : videourl,
 	precio: precio,
@@ -387,24 +389,25 @@ function encodeImageFileAsURL(element) {
 /* LAUNCH TEACHER AREA AND PASS ID*/
 
 
+ // To-do: Hay que pasar también id del alumno. 
 
-function clickFilaProfesor(clicked_id)
-{
+function clickFilaProfesor(clicked_id){
 	$("#tablaContrataClase").delegate("td.patata", "click", function(){
-		var id = clicked_id
+		var id = clicked_id;
+		
+		
 
 		return firebase.auth().onAuthStateChanged(function(user) {
-  		if (user) {
-    		window.location.href = "contrataClase.html?id="+id;		
-  		} else {
-    		alert("Debes estar registrado");
-  		}
-});
-		
+  			if (user) {
+				var displayName = user.displayName;
+    			var email = user.email;
+				var uid = user.uid;
+    			window.location.href = "contrataClase.html?id="+id;		
+  			} else {
+    			alert("Debes estar registrado");
+  			}
+		});
 	});
 }
 
-
-
-	
-
+ 

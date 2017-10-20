@@ -90,16 +90,32 @@
 		</td>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
-   			<input class="mdl-textfield__input" type="text" id="addTeacherLang">
-   			<label class="mdl-textfield__label" for="sample1">Idioma</label>
+			<select  id = "addTeacherMateria" name="materia">
+   				<option selected value="0"> Elige una materia </option>
+       			<optgroup label="Música"> 
+       			<option value="Guitarra">Guitarra</option> 
+       			<option value="Piano">Piano</option> 
+       			<option value="Percusión">Percusión</option> 
+   				</optgroup> 
+   				<optgroup label="Informática"> 
+       			<option value="Sistemas operativos">Sistemas operativos</option> 
+       			<option value="Programación">Programación</option> 
+       			<option value="Ofimática">Ofimática</option> 
+   				</optgroup> 
+				<optgroup label="Deporte"> 
+       			<option value="Yoga">Yoga</option> 
+       			<option value="Entrenamiento personal">Entrenamiento personal</option> 
+       			<option value="Aeróbic">Aeróbic</option> 
+   				</optgroup> 
+			</select>
   			</div>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
-    		<input class="mdl-textfield__input" type="text" id="addTeacherURL">
-    		<label class="mdl-textfield__label" for="sample1">Url a tu video de presentación</label>
+   			<input class="mdl-textfield__input" type="text" id="addTeacherLang">
+   			<label class="mdl-textfield__label" for="sample1">Idioma</label>
   			</div>
 		</td>
 		<td>
@@ -112,28 +128,38 @@
 	<tr>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherURL">
+    		<label class="mdl-textfield__label" for="sample1">Url a tu video de presentación</label>
+  			</div>
+		</td>
+		
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
    			<input class="mdl-textfield__input" type="number"  min="1" max="500" id="addTeacherPrice">
    			<label class="mdl-textfield__label" for="sample1">Precio por clase</label>
   			</div>
 		</td>
+		
+	</tr>
+	<tr>
 		<td>
 			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
   			<input type="checkbox" id="checkboxmediaclase" class="mdl-checkbox__input" checked>
   			<span class="mdl-checkbox__label">Media clase?</span>
 			</label>
 		</td>
-	</tr>
-	<tr>
+		
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
 			<input class="mdl-textfield__input" type="file" id="addTeacherPic" onchange="encodeImageFileAsURL(this)"/>
   			</div>
 		</td>
 	</tr>
+
 </table>		
 	 	
-	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="addTeacher(document.getElementById('addTeacherName').value,													document.getElementById('addTeacherClass').value,
-document.getElementById('addTeacherLang').value,
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="addTeacher(document.getElementById('addTeacherName').value,													document.getElementById('addTeacherClass').value,																		document.getElementById('addTeacherMateria').value,					
+document.getElementById('addTeacherLang').value,																		
 document.getElementById('addTeacherURL').value,																		document.getElementById('signupEmail').value,						 
 document.getElementById('signupPassword').value,													 document.getElementById('signupPassword2').value,
 document.getElementById('addTeacherPic').value,
