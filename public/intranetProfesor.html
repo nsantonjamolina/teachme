@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+		<link rel="stylesheet" href="style.css">
+	</head>
+<body>
+	
+	
+<!--Modify prof data dialog -->		
+		
+<dialog id="editProfData" class="mdl-dialog">
+   <h7 class="mdl-dialog__title">Edita tus datos</h7>
+   <div class="mdl-dialog__content">
+	   
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+	
+	 
+    <input class="mdl-textfield__input" type="text" id="editaMateria">
+    <label id="etiquetaEdita" class="mdl-textfield__label" for="sample1"></label>
+  </div>
+
+<div class="mdl-textfield mdl-js-textfield">
+	
+    <input class="mdl-textfield__input" type="text" id="editaMateria2">
+    <label id="etiquetaEdita2" class="mdl-textfield__label" for="sample1"></label>
+  </div>
+	   
+	   
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="editaGuardarButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Guardar</button>
+	</div>
+</dialog>
+
+	
+<!--Main page -->		
+		
+<div class="mdl-layout mdl-js-layout">
+   <header class="mdl-layout__header">
+      <div class="mdl-layout-icon"></div>
+      <div class="mdl-layout__header-row">
+         <span class="mdl-layout__title" onclick="window.location.href='index.html'">Teach me</span>
+         <span class="extraspace">  </span>
+         <span class="extraspace">  </span>
+         <div class="mdl-layout-spacer"></div>
+         <nav class="mdl-navigation">
+			
+			 <!-- Accent-colored raised button -->
+			<span class="extraspace"> </span>
+            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Login
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+			<span class="extraspace"> </span> 
+			 
+            <!-- Accent-colored raised button -->
+			 <span class="extraspace"> </span>
+            	<a href="hp.html">
+			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+				Hazte profesor!
+            		<i class="button-righ-icon material-icons">account_circle</i>
+            	</button>
+				</a>	
+			<span class="extraspace"> </span> 
+			
+			 <!-- Accent-colored raised button -->	
+            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Sign out
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         </nav>
+		  
+		  <span class="extraspace"> </span> 
+			
+			 <!-- Accent-colored raised button -->	
+            <button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Regístrate
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         </nav>
+      </div>
+   </header>
+   <div class="mdl-layout__drawer">
+   </div>
+</div>
+
+<div id="div1ClasesAlumno">
+	<h4>Datos del profesor</h4>
+	<button id="editaProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Edita tus datos</h8></button>
+	<button id="borraProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Borra tu cuenta</h8></button>
+</div>	
+	
+<div id="div2ClasesAlumno">
+	<h4>Próximas clases </h4>
+	<table  class="mdl-data-table mdl-js-data-table">
+  		<thead>
+			<tr>
+      			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
+      			<th class="mdl-data-table__cell--non-numeric">Fecha</th>
+      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
+				<th class="mdl-data-table__cell--non-numeric">Idioma</th>
+    		</tr>
+  		</thead>
+  		<tbody id="proxClas">
+  		</tbody>
+	</table>
+</div>
+	
+<!--div id="div3ClasesAlumno">
+	<h4>Clases realizadas</h4>
+	<table id="delegateTable" class="mdl-data-table mdl-js-data-table">
+  		<thead>
+			<tr>
+      			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
+				<th class="mdl-data-table__cell--non-numeric">Fecha</th>
+      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
+				<th class="mdl-data-table__cell--non-numeric">Valora a tu profesor</th>
+    		</tr>
+  		</thead>
+  		<tbody id="finClas">
+  		</tbody>
+	</table>
+</div-->
+	
+
+	
+</body>
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<script>
+  	// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyCr2wfyL15rtEmQJsy-mGuc3URImSdNraQ",
+    		authDomain: "teachme-7ed11.firebaseapp.com",
+    		databaseURL: "https://teachme-7ed11.firebaseio.com",
+    		projectId: "teachme-7ed11",
+    		storageBucket: "teachme-7ed11.appspot.com",
+    		messagingSenderId: "147010117223"
+  		};
+  		firebase.initializeApp(config);
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			
+	<script>
+	// Necesito que de alguna manera me pasen el id en la URL
+	// Lo ideal, sólo en caso de que esté logueado
+		
+	var url = window.location.href;
+	var search = url.split("?");
+	//var idProfesor = search[1].slice(3);
+	var idProfesor = "-Ksc33aYghNv6TeTw6td";
+			
+$("#borraProf").click(function(){
+	var refBorrar = firebase.database().ref('prof/' + idProfesor);
+	refBorrar.remove().then(function() {
+    console.log("Remove succeeded")}).catch(function(error) {
+    console.log("Remove failed: " + error.message)});
+});
+	
+	// Dialogo de edición de datos del profesor
+		
+$("#editaProf").click(function(){
+	// Recupero la info del profesor
+	var ref = firebase.database().ref();
+	var materia;
+	var precio;
+	ref.once("value").then(function(snapshot){
+		materia = snapshot.child('prof/' + idProfesor+'/teach').val();
+		precio = snapshot.child('prof/' + idProfesor+'/precio').val();
+		console.log(materia);
+		
+		document.getElementById('etiquetaEdita').innerHTML = "Materia: "+materia;
+		document.getElementById('etiquetaEdita2').innerHTML = "Precio: "+precio;
+		
+		var dialog = document.querySelector('#editProfData');
+  		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+			
+		dialog.showModal();
+	});
+	
+$("#editaGuardarButton").click(function(){
+	var newMateria = document.getElementById('editaMateria').value;
+	var newPrecio = document.getElementById('editaMateria2').value;
+	var rutaMateriaRef = "prof/"+idProfesor+"/materia";
+	var rutaPrecioRef = "prof/"+idProfesor+"/precio";
+	var materiaRef = firebase.database().ref(rutaMateriaRef);
+	materiaRef.set(newMateria);
+	var precioRef = firebase.database().ref(rutaPrecioRef);
+	precioRef.set(newPrecio).then(function() {
+    console.log('Synchronization succeeded');
+  	}).catch(function(error) {
+    console.log('Synchronization failed');
+  	});;
+	});	
+		
+				
+	
+		//document.getElementById("editaMateria").value = materia;
+  
+});		
+		
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	
+	<script>		
+	</script>
+
+	<script type='text/javascript' src="functions.js"></script>		
+</html>

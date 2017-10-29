@@ -12,7 +12,8 @@ $(document).ready(
 		console.log("Sorry, no hay user");	
 		$("#tablaContrataClase").hide();	
 		$("#intranetButton").hide();
-		$("#logoutButton").hide
+		$("#logoutButton").hide();
+		$("#areaProfesorButton").hide();
 		// Cuando cargo, si no tengo user...cierro el modal
 		$("#logoutButton").click();	
 		}
@@ -60,13 +61,20 @@ $("#logginButton").click(
 }
 );
 
+var sesion = firebase.auth.Auth.SESSION;
+function persiste(){
+	firebase.auth().setPersistence(sesion)
+    .then(function() {
+  // Existing and future Auth states are now persisted in the current
+  // session only. Closing the window would clear any existing state even if
+  // a user forgets to sign out.
+});
+	}
 
 /* LOGIN PROCESS */
 var u;
 
-$("#loginbutton").click(
-	function(){
-		
+$("#loginbutton").click(function(){
 		
 		var email = $("#loginemail").val();
 		var password = $("#loginpassword").val();
@@ -75,6 +83,8 @@ $("#loginbutton").click(
 			
 			
 			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+				//return persiste();
+				// Esto...??
        			u = firebase.auth().currentUser;
 				if(u){
 										
@@ -82,14 +92,23 @@ $("#loginbutton").click(
 					$("#registrateButton").hide();
 					// Esto va bien
 					$("#logginButton").hide();
-					
 					$("#loginProgress").show();
 					$("#intranetButton").show();
 					$("#logoutButton").show();
-					
-					
+					//if ($("#eprofesorcb").getAttribute("checked") == false) {$("#areaProfesorButton").hide();}
+					var checkedValue = null; 
+					// Tomo el valor
+					var inputElements = document.getElementById('eprofesorcb');
+					// Tomo el valor
+						if(inputElements.checked && inputElements.value == "on"){
+           					$("#areaProfesorButton").show();
+							//console.log("pulsado? "+inputElements.value);
+							//pulsado? on
+      					}
 				}
-			}).catch(function(error) {
+		
+				}
+			).catch(function(error) {
 				// Handle Errors here.
 				$("#loginError").show().text(error.message);	
 				var errorCode = error.code;
@@ -97,10 +116,9 @@ $("#loginbutton").click(
   				console.log(errorCode);
 				console.log(errorMessage);
 			});
-		}
-	
-	}
-);
+			
+		
+}});
 
 var u;
 
@@ -316,13 +334,17 @@ function addTeacher(name, teach,  materia, lang, videourl, email, password, pass
     teach: teach.toLowerCase(),
     lang: lang,
 	materia: materia,	
-	password: password, 
+	password: password,
+	numClases: 0,
+	rating: 0,	
 	videourl : videourl,
 	precio: precio,
 	mediaclase: mediaclase,	
   	};
-	addTeacherFoto(foto)  
-
+	
+	addTeacherFoto(foto);  
+	loginProf(email,password);
+	
   	// Get a key for a new Post.
   	var newPostKey = firebase.database().ref().child('prof').push().key;
 
@@ -348,7 +370,16 @@ function addTeacher(name, teach,  materia, lang, videourl, email, password, pass
 	);		
 }
 	
+/* LOGIN PROFESOR */
 
+function loginProf(email, password){
+	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  	// Handle Errors here.
+  	var errorCode = error.code;
+  	var errorMessage = error.message;
+  	console.log("Ha fallado loginProfesor"+errorCode+""+errorMessage);
+});
+}
 
 /* ADD TEACHER'S PHOTO */
 
@@ -394,8 +425,9 @@ function encodeImageFileAsURL(element) {
 function clickFilaProfesor(clicked_id){
 	$("#tablaContrataClase").delegate("td.patata", "click", function(){
 		var id = clicked_id;
+		console.log(id);
 		
-		
+	//	if(hayUsuario() == true){ 
 
 		return firebase.auth().onAuthStateChanged(function(user) {
   			if (user) {
@@ -407,7 +439,17 @@ function clickFilaProfesor(clicked_id){
     			alert("Debes estar registrado");
   			}
 		});
+	//	}
 	});
 }
 
  
+function hayUsuario(){
+	firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("true");
+  } else {
+    console.log("false");
+  }
+});
+}

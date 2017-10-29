@@ -13,21 +13,13 @@
 
 <dialog id="ratingDialog" class="mdl-dialog">
    <!--h6 class="mdl-dialog__title">Valora la clase</h6-->
-   <h5>Valora la clase</h5>
+   
+   
    <div class="mdl-dialog__content">
-	   <!-- p id="loginError"></p>
-
 	   <!-- Simple Textfield -->
-
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="Text" id="idSesion">
-    <label class="mdl-textfield__label" for="sample1">Id de la sesión</label>
-  </div>
-	 
-
-	   <!-- Simple Textfield -->
-	   
-  <div class="mdl-textfield mdl-js-textfield">
+	   <h5>  Valora tu clase</h5>   
+	   <h7>  Elige una nota entre 1 y 10</h7>     
+  <div id="notaDesplegable2" class="mdl-textfield mdl-js-textfield">
 	  <select id="notaDesplegable">
   		<option value="1">1</option>
   		<option value="2">2</option>
@@ -45,12 +37,18 @@
    </div>
    <div class="mdl-dialog__actions">
        <!-- Colored raised button -->
-		<button onclick="rating(document.getElementById('idSesion').value,document.getElementById('notaDesplegable').value)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+		<button onclick="rating(document.getElementById('notaDesplegable').value)" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
 			Enviar</button>
+	   <button onclick="closeDialog()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Cerrar</button>
 	</div>
-	<div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
-   </div>
+	
+   
 </dialog>
+	
+	
+	
+	
 	
 	
 <!--Main page -->		
@@ -103,10 +101,10 @@
    <div class="mdl-layout__drawer">
    </div>
 </div>
+
 <div id="div1ClasesAlumno">
 	<h4>Datos del alumno</h4>
 	<button id="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Edita tus datos</h8></button>
-	<button id="valora" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Valora tus clases</h8></button>
 </div>	
 	
 <div id="div2ClasesAlumno">
@@ -127,10 +125,11 @@
 	
 <div id="div3ClasesAlumno">
 	<h4>Clases realizadas</h4>
-	<table  class="mdl-data-table mdl-js-data-table">
+	<table id="delegateTable" class="mdl-data-table mdl-js-data-table">
   		<thead>
 			<tr>
       			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
+				<th class="mdl-data-table__cell--non-numeric">Fecha</th>
       			<th class="mdl-data-table__cell--non-numeric">Teach</th>
 				<th class="mdl-data-table__cell--non-numeric">Valora a tu profesor</th>
     		</tr>
@@ -195,11 +194,12 @@
 						var nombre = snapshot.child('clases/'+claseUsuario[i]+'/nombre').val();
 						var fecha = snapshot.child('clases/'+claseUsuario[i]+'/fecha').val();
 						var idProf = snapshot.child('clases/'+claseUsuario[i]+'/id').val();
+						/*
 						console.log("materia "+materia);
 						console.log("nombre "+nombre);
 						console.log("fecha "+fecha);
 						console.log("idProf "+idProf);
-						
+						*/
 						var f1 = new Date();
 						
 						f1.setDate(fecha.slice(0,2));
@@ -214,12 +214,13 @@
 						if(fechaActual < f1){
 							
 							
-						$("#proxClas").append("<tr><td onClick="+"clickFilaProfesor(this.id)"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+fecha+"</td></tr>");
+						$("#proxClas").append("<tr><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+fecha+"</td></tr>");
 						}else{
 							
 							
-						$("#finClas").append("<tr><td id='hola' onClick='clickFilaProfesor(this.id)' class='patata2 mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td style='text-align: center;' class='mdl-textfield mdl-js-textfield'><button id='pepeB' onClick='prueba()' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Prueba</button></td></tr>");
+						$("#finClas").append("<tr id="+idProf+"><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+fecha+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onclick='bd()'>Valora tu clase</button></td></tr>");
 						
+							//<button id='pepeB' onClick='prueba()' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Prueba</button>
 							
 						}
 					}
@@ -230,22 +231,45 @@
 			
 	</script>
 	<script>
-//$("#pepeB").click(function(){	
-function prueba(){		
-		hijo=$("#pepeB");
-		padre=hijo.closest("td").prop("id");
-		alert(padre.val);
-		var idb = $(this).closest(".td").prop("id");
-		
-}
-//);
+		function bd(){
+			let table = document.getElementById('delegateTable');
+    		let selectedTd;
+
+    		table.onclick = function(event) {
+      		let target = event.target;
+
+      		while (target != this) {
+        	if (target.tagName == 'TR') {
+          		highlight(target);
+          	return;
+        	}
+        	target = target.parentNode;
+      		}	
+    		}
+		}
+
 	</script>
 	
 	<script>
+		
 /* MODAL RATING */
 
-$("#valora").click(
-	function(){
+var profesor;
+		
+	function closeDialog(){
+		var dialog = document.querySelector('#ratingDialog');
+		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+		dialog.close();
+		
+	}	
+		
+	function highlight(node) {
+		
+		// Guardo quién es el profesor del botón pulsado
+		profesor = node.id;
+		//document.getElementById("id00").innerHTML = node.id;
 			
 		var dialog = document.querySelector('#ratingDialog');
   		if (! dialog.showModal) {
@@ -253,37 +277,39 @@ $("#valora").click(
     	}
 				
 		dialog.showModal();
-});
+};
 		
-		function rating(id,nota){
-			alert(nota+"_"+id);
+		function rating(nota){
+			console.log(profesor);
+			
 			var ref = firebase.database().ref();
-			ref.once("value").then(function(snapshot){
-			// Saco id de Prof de la clase
-			var idProfRat = snapshot.child("clases/"+id+"/id").val();
-			var notaProfPrev = snapshot.child("prof/"+idProfRat+"/rating").val();	
-			if(notaProfPrev > nota){
-				nota = nota + (notaProfPrev*0.1);
-				var rutaNotaRef = "prof/"+idProfRat+"/rating";
-				var notaRef = firebase.database().ref(rutaNotaRef);
-				notaRef.set(nota);
-				alert(nota);
-			}
-			else if(notaProfPrev < nota){
-				nota = nota - (1-(notaProfPrev*0.1));
-				var rutaNotaRef = "prof/"+idProfRat+"/rating";
-				var notaRef = firebase.database().ref(rutaNotaRef);
-				notaRef.set(nota);
-				alert(nota);
-			}
-			else {alert("Gracias por valorar la sesión: "+id);}	
+			
+			ref.once("value").then(function(snapshot){	
+			var notaProfPrev = snapshot.child("prof/"+profesor+"/rating").val();	
+			var numClases = snapshot.child("prof/"+profesor+"/numClases").val();	
+			console.log("notaProfPrev: " + notaProfPrev);
+			console.log("numClases: " + numClases);
+			console.log("nota spinner: " + nota);	
 				
-		})}
-		
-		
-		
-		
-
+			var newNumClases = numClases+1;
+				
+				console.log("newNumClases: " + newNumClases);	
+				var nota1;
+				console.log("nota1: "+nota1);
+				nota1 = (+numClases* +notaProfPrev + +nota)/newNumClases;
+				console.log("nota1: "+nota1);
+				alert("nota1: "+nota1);
+				var rutaNotaRef = "prof/"+profesor+"/rating";
+				var notaRef = firebase.database().ref(rutaNotaRef);
+				notaRef.set(nota);
+				var rutaNumClases = "prof/"+profesor+"/numClases";
+				var numCRef = firebase.database().ref(rutaNumClases);
+				numCRef.set(newNumClases);
+				alert("newNumClases "+newNumClases);
+			
+				
+		}
+		)};
 	
 		
 </script>
