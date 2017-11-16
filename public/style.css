@@ -77,6 +77,9 @@
 	clear: left;
 	
 }
+#ii{
+top: 2400px;
+}
 
 #img{
 	background-position: center; 
@@ -151,9 +154,11 @@
 }
 
 #tablaProfesor{
+	height: 650px;
 	position: absolute;
 	left: 150px;
 	top: 100px;
+	
 }
 
 #card1{

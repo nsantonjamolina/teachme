@@ -7,9 +7,37 @@
 		<link rel="stylesheet" href="styles/timetablejs.css">
 		<link rel="stylesheet" href="style.css">
 		<script src="moment.js"></script> 
-		<script src="combodate.js"></script> 
+		<!--script src="combodate.js"></script--> 
 	</head>
 <body>
+	
+<!--Modal confirmación-->
+	
+<dialog id="profesorRegistrado" class="mdl-dialog">
+   <h4 class="mdl-dialog__title">¡Listo!</h4>
+   <div class="mdl-dialog__content">
+	   <p id="loginError"></p>
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+	  <h5>Se ha dado de alta correctamente!</h5>
+  </div>
+
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    
+  </div>
+
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="profesorRegistradoButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Volver</button>
+	</div>
+</dialog>	
+	
 <!--Main page -->		
 <firebase-auth id="auth" app-name="teachme-7ed11"></firebase-auth>		
 <div class="mdl-layout mdl-js-layout">
@@ -23,12 +51,13 @@
          <nav class="mdl-navigation">
 			 
 <span class="extraspace"> </span>
-<a href="areaAlumno.html"> 
+<a style="padding-right: 25px" href="areaAlumno.html"> 
 	<button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
 Intranet
 		<i class="button-righ-icon material-icons">account_circle</i>
 	</button>
 </a> 
+			 
 <!-- Accent-colored raised button -->
 <span class="extraspace"> </span>
 <a href="hp.html">
@@ -54,8 +83,8 @@ Sign out
    </div>
 </div>
 <div id="div1ClasesAlumno">
-	<h6>Conoce a tu profesor</h6>
-	<h7>Revisa el calendario, elige un fecha y haz click en guardar</h7>
+	<h5>Conoce a tu profesor</h5>
+	<h6>Revisa el calendario, elige un fecha y haz click en guardar</h6>
 </div>
 
 <div id="div2ClasesAlumno">
@@ -88,7 +117,7 @@ Sign out
 	</style>
 	<input id="1" type="date"/>
 	<!-- Accent-colored raised button with ripple -->
-	<button id="2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+	<button id="2" onclick=user(); class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   		Guardar
 	</button>
 	<button id="3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
@@ -140,7 +169,7 @@ Sign out
     		return string.charAt(0).toUpperCase() + string.slice(1);
 		}
 	</script>
-	<script>
+	<!--script>
 
 		// Obtenemos id del profesor
 			var url = window.location.href;
@@ -228,13 +257,87 @@ Sign out
 		});
 	</script-->
 	
-	<script>
+	<!--script>
 		window.onload = function() {
-    		console.log("Desde areaProfesor pregunto: " + hayUsuario());
+    		var user = firebase.auth().currentUser;
+			if (user !== null){	
+			console.log("Desde profesor te digo1:" + user.email);
+			console.log("Desde profesor te digo2:" + user.displayName);
 			//  		initApp();
-    		
+			}
 		};
 		
-	</script>
+	</script-->
+<script>
+		var url = window.location.href;
+		var search = url.split("?");
+		var profesorIdUrl = search[1].slice(3);
+		
+		function user(){
+		
+		var user = firebase.auth().currentUser;
+		
+		if (user !== null) {
+			console.log("Desde prof: "+ user.uid);
+			addClass(user.uid, profesorIdUrl,document.getElementById("1").value);
+		/* Guardar en clases: 
+			- id sesión 
+			- id alumno 
+			- id prof
+			- id 1
+		
+		*/
+			
+			
+		} else {			
+			console.log("Sorry, no hay user");	
+	/*	$("#tablaContrataClase").hide();	
+		$("#intranetButton").hide();
+		$("#logoutButton").hide();
+		$("#areaProfesorButton").hide();
+		// Cuando cargo, si no tengo user...cierro el modal
+		$("#logoutButton").click();	*/
+		}};
+
+	/* ADD A CLASS  */
+
+function addClass (alumnoId, profesorId, fecha) {
+		
+	// A post entry.
+  	var postData = {
+	alumnoId : alumnoId,
+	profesorId : profesorId,
+	fecha : fecha,	
+	realizada: 0	
+  	};
+	
+  	// Get a key for a new Post.
+  	var newPostKey = firebase.database().ref().child('clases').push().key;
+
+	console.log("newPostKey "+newPostKey);	
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  	var updates = {};
+  	updates['/clases/' + newPostKey] = postData;
+
+  	//firebase.database().ref().update(updates).then(function(){}
+	firebase.database().ref().update(updates);	 
+	
+	var dialog = document.querySelector('#profesorRegistrado');
+  		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+		dialog.showModal();
+};
+
+$("#profesorRegistradoButton").click(function(){
+		var dialog = document.querySelector('#profesorRegistrado');
+  		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+		dialog.close();
+})
+
+</script>
 
 </html>	

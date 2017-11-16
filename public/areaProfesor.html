@@ -22,6 +22,8 @@
 	   </div>
 </div>		  
 
+<!--Modal confirmación-->
+	
 <dialog id="profesorRegistrado" class="mdl-dialog">
    <h4 class="mdl-dialog__title">¡Listo!</h4>
    <div class="mdl-dialog__content">
@@ -52,19 +54,20 @@
 <div id="tablaProfesor">	
 	
 <h3> Formulario alta profesor </h3>	
+<h6> Una vez dado de alta podrás acceder directamente con tu email y password </h6>	
 <table>
 	<tr>
-		<td>
-			<div class="mdl-textfield mdl-js-textfield">
-				<input class="mdl-textfield__input" type="text" id="signupEmail">
-				<label class="mdl-textfield__label" for="sample1">Email</label>
-	  		</div>
-		</td>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
     		<input class="mdl-textfield__input" type="text" id="addTeacherName">
     		<label class="mdl-textfield__label" for="sample1">Nombre</label>
   			</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+				<input class="mdl-textfield__input" type="text" id="signupEmail">
+				<label class="mdl-textfield__label" for="sample1">Email</label>
+	  		</div>
 		</td>
 	</tr>
 	<tr>
@@ -77,7 +80,7 @@
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
 			<input class="mdl-textfield__input" type="password" id="signupPassword2">
-			<label class="mdl-textfield__label" for="sample1">Repeat Password</label>
+			<label class="mdl-textfield__label" for="sample1">Repite el password</label>
 	  		</div>
 		</td>
 			</tr>
@@ -90,24 +93,19 @@
 		</td>
 		<td>
 			<div class="mdl-textfield mdl-js-textfield">
-			<select  id = "addTeacherMateria" name="materia">
+			<select  name="addTeacherMateria" name="materia" id="addTeacherMateria">
    				<option selected value="0"> Elige una materia </option>
-       			<optgroup label="Música"> 
-       			<option value="Guitarra">Guitarra</option> 
-       			<option value="Piano">Piano</option> 
-       			<option value="Percusión">Percusión</option> 
-   				</optgroup> 
-   				<optgroup label="Informática"> 
+       			<!--optgroup label="Música"--> 
+       			<option value="Música">Música</option> 
+       			<option value="Deporte">Deporte</option> 
+       			<option value="Cocina">Cocina</option> 
+       			<option value="Edición de vídeo">Edición de vídeo</option> 
+       			<option value="Fotografía">Fotografía</option> 
        			<option value="Sistemas operativos">Sistemas operativos</option> 
        			<option value="Programación">Programación</option> 
        			<option value="Ofimática">Ofimática</option> 
-   				</optgroup> 
-				<optgroup label="Deporte"> 
-       			<option value="Yoga">Yoga</option> 
-       			<option value="Entrenamiento personal">Entrenamiento personal</option> 
-       			<option value="Aeróbic">Aeróbic</option> 
-   				</optgroup> 
-			</select>
+       			<option value="Costura">Costura</option> 
+			</select>	
   			</div>
 		</td>
 	</tr>
@@ -158,14 +156,9 @@
 
 </table>		
 	 	
-	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="addTeacher(document.getElementById('addTeacherName').value,													document.getElementById('addTeacherClass').value,																		document.getElementById('addTeacherMateria').value,					
-document.getElementById('addTeacherLang').value,																		
-document.getElementById('addTeacherURL').value,																		document.getElementById('signupEmail').value,						 
-document.getElementById('signupPassword').value,													 document.getElementById('signupPassword2').value,
-document.getElementById('addTeacherPic').value,
-document.getElementById('addTeacherPrice').value,
-document.getElementById('checkboxmediaclase').value,																	
-document.getElementById('addTeacherSkype').value)">Guardar</button>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="guardarProfesor()">Guardar</button>
+	<span class="extraspace"> </span>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" 	onclick="volverProfesor()">Volver</button>
 </div>	
 	<script src="scripts/timetable.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
@@ -189,5 +182,34 @@ document.getElementById('addTeacherSkype').value)">Guardar</button>
 		</script-->
 	
 </body>
+<script>
+
+function guardarProfesor(){
+	
+firebase.auth().createUserWithEmailAndPassword(document.getElementById('signupEmail').value, document.getElementById('signupPassword').value).then(function() {
+			
+			addTeacher(document.getElementById('addTeacherName').value,																document.getElementById('addTeacherClass').value,																		document.getElementById('addTeacherMateria').value,					
+		 	document.getElementById('addTeacherLang').value,															
+			document.getElementById('addTeacherURL').value,																			document.getElementById('signupEmail').value,						 
+			document.getElementById('signupPassword').value,													 					document.getElementById('signupPassword2').value,
+			document.getElementById('addTeacherPic').value,
+			document.getElementById('addTeacherPrice').value,
+			document.getElementById('checkboxmediaclase').value,											
+			document.getElementById('addTeacherSkype').value)	
+			}).catch(function(error) {
+  				// Handle Errors here.
+  				var errorCode = error.code;
+  				var errorMessage = error.message;
+				alert(errorCode +" "+errorMessage);
+			});
+}
+	
+function volverProfesor(){
+	window.location.href = "index.html";		
+}	
+	
+	
+</script>	
+	
 </html>
 	

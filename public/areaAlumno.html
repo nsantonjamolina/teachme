@@ -44,12 +44,7 @@
 	</div>
 	
    
-</dialog>
-	
-	
-	
-	
-	
+</dialog>	
 	
 <!--Main page -->		
 		
@@ -63,26 +58,8 @@
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
 			
-			 <!-- Accent-colored raised button -->
-			<span class="extraspace"> </span>
-            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Login
-            <i class="button-righ-icon material-icons">account_circle</i>
-            </button>
-			<span class="extraspace"> </span> 
-			 
-            <!-- Accent-colored raised button -->
-			 <span class="extraspace"> </span>
-            	<a href="hp.html">
-			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-				Hazte profesor!
-            		<i class="button-righ-icon material-icons">account_circle</i>
-            	</button>
-				</a>	
-			<span class="extraspace"> </span> 
-			
 			 <!-- Accent-colored raised button -->	
-            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <button id="logoutButton" onclick="window.location.href='index.html'" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Sign out
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
@@ -90,12 +67,6 @@
 		  
 		  <span class="extraspace"> </span> 
 			
-			 <!-- Accent-colored raised button -->	
-            <button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Regístrate
-            <i class="button-righ-icon material-icons">account_circle</i>
-            </button>
-         </nav>
       </div>
    </header>
    <div class="mdl-layout__drawer">
@@ -104,7 +75,7 @@
 
 <div id="div1ClasesAlumno">
 	<h4>Datos del alumno</h4>
-	<button id="" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Edita tus datos</h8></button>
+	<button id="" onclick=user() class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Edita tus datos</h8></button>
 </div>	
 	
 <div id="div2ClasesAlumno">
@@ -114,7 +85,7 @@
 			<tr>
       			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
       			<th class="mdl-data-table__cell--non-numeric">Fecha</th>
-      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
+      			<th class="mdl-data-table__cell--non-numeric">Enseña</th>
 				<th class="mdl-data-table__cell--non-numeric">Idioma</th>
     		</tr>
   		</thead>
@@ -130,7 +101,7 @@
 			<tr>
       			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
 				<th class="mdl-data-table__cell--non-numeric">Fecha</th>
-      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
+      			<th class="mdl-data-table__cell--non-numeric">Enseña</th>
 				<th class="mdl-data-table__cell--non-numeric">Valora a tu profesor</th>
     		</tr>
   		</thead>
@@ -155,14 +126,10 @@
   		};
   		firebase.initializeApp(config);
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+	<script type='text/javascript' src="functions.js"></script>			
 	<script>
 		
-		// Obtenemos id del profesor
-			var url = window.location.href;
-			var search = url.split("?");
-			var idAlumno = search[1].slice(3);
-			
 		// Script para rellenar las tablas con las clases
 		
 		$("showValoraButton").hide();
@@ -172,59 +139,46 @@
 				3. Busca las clases de cada uno de los arrays y hazle append en las tablas
 				4. Podemos discriminar a partir de la fecha actual
 			*/	
-				var claseUsuario = new Array(null,null,null,null,null,null,null,null,null,null);
-				var clases = new Array("clase0", "clase1", "clase2","clase3", "clase4", "clase5","clase6", "clase7", "clase8","clase9");
+				var claseUsuario = [];		
+				var idAlumno = user.uid;
+				var clase = "noNull";
+				var i = 0;
+				console.log(idAlumno);
 		
 		$(document).ready(function(){
 			
 			var ref = firebase.database().ref();
 			ref.once("value").then(function(snapshot){
 				// Saco todas las clases que hay en la BD con este idAlumno
-				claseUsuario[0] = snapshot.child("alumno/"+idAlumno+"/"+clases[0]).val();
-				claseUsuario[1] = snapshot.child("alumno/"+idAlumno+"/"+clases[1]).val();
-				claseUsuario[2] = snapshot.child("alumno/"+idAlumno+"/"+clases[2]).val();
-				claseUsuario[3] = snapshot.child("alumno/"+idAlumno+"/"+clases[3]).val();
-				claseUsuario[4] = snapshot.child("alumno/"+idAlumno+"/"+clases[4]).val();
-				claseUsuario[5] = snapshot.child("alumno/"+idAlumno+"/"+clases[5]).val();
+				while(clase != null){
+					clase = snapshot.child("alumno/"+idAlumno+"/clases/"+clases[i]).val();	
+					claseUsuario.push(clase);
+					i++;	
+				}
+				// para que se me quede apuntando justo al último
+				i--;
 				// Con esto ya voy a leer sólo aquellas clases que coincida el id de la clase
-				for (i = 0; i < claseUsuario.length; i++) {
-					if(claseUsuario[i] != null ){
-						console.log(i);
-						var materia = snapshot.child('clases/'+claseUsuario[i]+'/materia').val();
-						var nombre = snapshot.child('clases/'+claseUsuario[i]+'/nombre').val();
-						var fecha = snapshot.child('clases/'+claseUsuario[i]+'/fecha').val();
-						var idProf = snapshot.child('clases/'+claseUsuario[i]+'/id').val();
-						/*
-						console.log("materia "+materia);
-						console.log("nombre "+nombre);
-						console.log("fecha "+fecha);
-						console.log("idProf "+idProf);
-						*/
-						var f1 = new Date();
-						
-						f1.setDate(fecha.slice(0,2));
-						f1.setMonth(fecha.slice(2,4));
-						f1.setFullYear(fecha.slice(6,10));
-						
-						var fechaActual = new Date();
-						console.log(fechaActual >= f1);
-						console.log(fechaActual.getDate() + "/" + (fechaActual.getMonth() +1) + "/" + fechaActual.getFullYear());
-						console.log(f1.getDate() + "/" + (f1.getMonth() +1) + "/" + f1.getFullYear());
-						
-						if(fechaActual < f1){
-							
+				var idClase = "1";
+				while (idClase != null){
+					
+						idClase = claseUsuario.pop();
+						var materia = snapshot.child('clases/'+idClase+'/materia').val();
+						var nombre = snapshot.child('clases/'+idClase+'/nombre').val();
+						var fecha = snapshot.child('clases/'+idClase+'/fecha').val();
+						var idProf = snapshot.child('clases/'+idClase+'/profesorId').val();
+						var idAlumno = snapshot.child('clases/'+idClase+'/alumnoId').val();
+						var realizada = snapshot.child('clases/'+idClase+'/realizada').val();
+				
+					if	(realizada == 0){		
 							
 						$("#proxClas").append("<tr><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+fecha+"</td></tr>");
 						}else{
 							
 							
 						$("#finClas").append("<tr id="+idProf+"><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombre+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+fecha+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><button class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored' onclick='bd()'>Valora tu clase</button></td></tr>");
-						
-							//<button id='pepeB' onClick='prueba()' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Prueba</button>
+					
 							
 						}
-					}
-				}
 			});			
 		});
 		
@@ -313,6 +267,20 @@ var profesor;
 	
 		
 </script>
+<script>
 
-	<script type='text/javascript' src="functions.js"></script>		
+	
+		function user(){
+		var user = firebase.auth().currentUser;
+		
+		if (user !== null) {
+			console.log("Desde AA: "+ user.email)
+		} else {			
+			console.log("Sorry, no hay user");	
+		}};
+
+
+</script>
+
+
 </html>

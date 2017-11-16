@@ -1,26 +1,81 @@
-/* INICIALIZACIÓN */
-
-
+/* INICIALIZACIÓN DE TODA PÁGINA*/
 
 $(document).ready(
 	function(){
 		var user = firebase.auth().currentUser;
-		if (user !== null) {
-		console.log(user.email)
-		} else {
-			
-		console.log("Sorry, no hay user");	
-		$("#tablaContrataClase").hide();	
-		$("#intranetButton").hide();
-		$("#logoutButton").hide();
-		$("#areaProfesorButton").hide();
-		// Cuando cargo, si no tengo user...cierro el modal
-		$("#logoutButton").click();	
-		}
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user !== null) {
+				console.log(user.email)
+				$("#intranetButton").show();
+				$("#logoutButton").show();
+				$("#profesorButton").show();
+				$("#areaProfesorButton").hide();
+				$("#logoutButton").show();
+				$("#logginButton").hide();
+				$("#registrateButton").hide();
+			} else {
+				console.log("Sorry, no hay user");	
+				$("#tablaContrataClase").hide();	
+				$("#intranetButton").hide();
+				$("#logoutButton").hide();
+				$("#areaProfesorButton").hide();
+				$("#logginButton").show();
+				$("#registrateButton").show();
+				$("#profesorButton").show();
+				$("#logoutButton").click();	
+			}
+		})
 	}
-	
-
 );
+
+
+var u;
+
+// TO-DO: ESTO VALE PARA ALGO???
+
+function crearDesdeRegistro(email, password){
+		
+		
+		var email = email;
+		var password = password;
+		
+		if (email != "" & password != ""){
+			
+			
+			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
+       			u = firebase.auth().currentUser;
+				if(u){
+										
+					$("#loginbutton").hide();
+					$("#registrateButton").hide();
+					// Esto va bien
+					$("#logginButton").hide();
+					
+					$("#loginProgress").show();
+					$("#intranetButton").show();
+					$("#logoutButton").show();
+					
+					
+				}
+			}).catch(function(error) {
+				// Handle Errors here.
+				$("#loginError").show().text(error.message);	
+				var errorCode = error.code;
+  				var errorMessage = error.message;
+  				console.log(errorCode);
+				console.log(errorMessage);
+			});
+		}
+	
+};
+
+
+
+
+/*
+		BOTONES
+*/
+
 
 /* MODAL LOGIN */
 
@@ -61,16 +116,6 @@ $("#logginButton").click(
 }
 );
 
-var sesion = firebase.auth.Auth.SESSION;
-function persiste(){
-	firebase.auth().setPersistence(sesion)
-    .then(function() {
-  // Existing and future Auth states are now persisted in the current
-  // session only. Closing the window would clear any existing state even if
-  // a user forgets to sign out.
-});
-	}
-
 /* LOGIN PROCESS */
 var u;
 
@@ -83,8 +128,7 @@ $("#loginbutton").click(function(){
 			
 			
 			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
-				//return persiste();
-				// Esto...??
+				
        			u = firebase.auth().currentUser;
 				if(u){
 										
@@ -95,7 +139,6 @@ $("#loginbutton").click(function(){
 					$("#loginProgress").show();
 					$("#intranetButton").show();
 					$("#logoutButton").show();
-					//if ($("#eprofesorcb").getAttribute("checked") == false) {$("#areaProfesorButton").hide();}
 					var checkedValue = null; 
 					// Tomo el valor
 					var inputElements = document.getElementById('eprofesorcb');
@@ -120,65 +163,6 @@ $("#loginbutton").click(function(){
 		
 }});
 
-var u;
-
-
-function crearDesdeRegistro(email, password){
-		
-		
-		var email = email;
-		var password = password;
-		
-		if (email != "" & password != ""){
-			
-			
-			firebase.auth().signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
-       			u = firebase.auth().currentUser;
-				if(u){
-										
-					$("#loginbutton").hide();
-					$("#registrateButton").hide();
-					// Esto va bien
-					$("#logginButton").hide();
-					
-					$("#loginProgress").show();
-					$("#intranetButton").show();
-					$("#logoutButton").show();
-					
-					
-				}
-			}).catch(function(error) {
-				// Handle Errors here.
-				$("#loginError").show().text(error.message);	
-				var errorCode = error.code;
-  				var errorMessage = error.message;
-  				console.log(errorCode);
-				console.log(errorMessage);
-			});
-		}
-	
-	};
-
-
-
-/* RECOVER PASSWORD*/
-
-$("#recoverPassword").click(
-	function(){
-		var actionCodeSettings = {
-  		
-			};
-		
-		var email = $("#loginemail").val();		
-			
-			firebase.auth().sendPasswordResetEmail(
-    			email).then(function() {
-      		// Password reset email sent.
-				alert("Se ha enviado un correo electrónico a "+email+" para recuperar la contraseña");
-    		}).catch(function(error) {
-				alert("Ha habido algún problema con la recuperación de su contraseña. Contacte con el administrador");
-			});
-	});		
 
 /* LOGOUT PROCESS */
 
@@ -199,6 +183,24 @@ $("#logoutButton").click(
 	}	
 );
 
+/* RECOVER PASSWORD*/
+
+$("#recoverPassword").click(
+	function(){
+		var actionCodeSettings = {
+  		
+			};
+		
+		var email = $("#loginemail").val();		
+			
+			firebase.auth().sendPasswordResetEmail(
+    			email).then(function() {
+      		// Password reset email sent.
+				alert("Se ha enviado un correo electrónico a "+email+" para recuperar la contraseña");
+    		}).catch(function(error) {
+				alert("Ha habido algún problema con la recuperación de su contraseña. Contacte con el administrador");
+			});
+	});		
 
 
 /* SIGNUP PROCESS */
@@ -219,15 +221,21 @@ $("#registrateButton").click(
 
 $("#signupbutton").click(
 	function(){
+		var nombre = $("#signupName").val();
 		var email = $("#signupEmail").val();
 		var password = $("#signupPassword").val();
 		var password2 = $("#signupPassword2").val();	
 		if (password == password2 && password != ""){
 			firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
 				$("#signupProgress").show();
+				
+				altaEnBD(nombre,email);
 				alert("El usuario se ha creado correctamente");
-				// Si todo ha ido bien, cierra el diálogo
-				crearDesdeRegistro(email, password);
+				
+				
+				// TO-DO: ESTO VALE PARA ALGO???
+				//crearDesdeRegistro(email, password);
+				
 				$("#closesignupbutton").click();
 			}).catch(function(error) {
 				$("#signupProgress").hide();
@@ -239,7 +247,8 @@ $("#signupbutton").click(
 			});
 		}
 	}
-);		
+);	
+
 
 
 $("#closesignupbutton").click(
@@ -248,6 +257,19 @@ $("#closesignupbutton").click(
 		dialog.close();
 	}
 );
+
+
+ /* Método para registrar en la base de datos a un alumno cuando este se registra en la web*/
+
+function altaEnBD(alumnoNombre, alumnoEmail){
+	var user = firebase.auth().currentUser;  	
+	firebase.database().ref('alumno/'+user.uid).set({
+		alumnoNombre : alumnoNombre,
+		alumnoEmail : alumnoEmail
+	});
+}
+
+
 
 /* CONNECT WITH FIREBASE TO BRING USER'S SEARCH BY TOPIC*/
 	
@@ -259,9 +281,9 @@ $("#btnBusca").click(
 		if (user != null){
 			
 			var buscadorText = ($("#buscadorText").val()).toLowerCase();
-			var buscadorSelect = ($("#buscadorSelect").val()).toLowerCase();
+			var buscadorSelect = $("#buscadorSelect").val();
+			var contador = 0;
 			
-			console.log()
 			var rootRef = firebase.database().ref().child("prof");
 			//Improve: Don't retrieve all the data!	
 			
@@ -272,50 +294,91 @@ $("#btnBusca").click(
 				var teach = snapshot.child("teach").val();
 				var idioma = snapshot.child("lang").val();
 				var materia = snapshot.child("materia").val();
-				var foto = snapshot.child("foto").val();	
-				if(buscadorText == teach | buscadorText == "any" | buscadorSelect == materia ){	
+				var foto = snapshot.child("foto").val();
+				
+				
 					
+				if(buscadorText == teach | buscadorSelect == materia ){	
+				contador++;	
 
+				var keykey = key.concat(key);
 					
-				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+name+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+teach+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'>"+foto+"</img></td></tr>");
+				traeFoto(keykey);
+					
+					
+				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+name+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+teach+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'><img id="+keykey+" height='42' width='42'></img></td></tr>");
 				}
-		
+				
 			}); 	
 		
-			$("#displayClassesOut").show();
-			
+			if(contador == 0 ){
+				//Estoy hay que arreglarlo
+				//alert("¡Lo siento, actualmente no disponemos de ningún profesor de "+teach+"!");	
+			}else{
+				$("#displayClassesOut").show();
+			}
 		} else {
 			// Nos alerta y nos lanza el diálogo de login
 			alert("¡Debes ingresar para poder contratar tu clase!");
 		}
-	
 });
+
+var contadorFoto = 0; 
+
+function traeFoto(key){
+	
+	contadorFoto++;
+
+	
+	// Create a reference with an initial file path and name
+	var storage = firebase.storage();
+	var pathReference = storage.ref('foto.jpg');
+
+	// Create a reference from a Google Cloud Storage URI
+	var gsReference = storage.refFromURL('https://firebasestorage.googleapis.com/v0/b/teachme-7ed11.appspot.com/o/IMG_2515.jpg?alt=media&token=97aeb6a3-4d11-418b-9ac5-331830bbcecd')
+
+	// Get the download URL	
+	gsReference.getDownloadURL().then(function(url) {
+  		// Insert url into an <img> tag to "download"
+		  // Or inserted into an <img> element:	
+  		var img = document.getElementById(key);
+  		img.src = url;
+		console.log("llamada a traeFoto" +	contadorFoto + " url: " + url);
+		
+	}).catch(function(error) {
+
+  // A full list of error codes is available at
+  // https://firebase.google.com/docs/storage/web/handle-errors
+  switch (error.code) {
+    case 'storage/object_not_found':
+      // File doesn't exist
+		  console.log('storage/object_not_found');
+      break;
+
+    case 'storage/unauthorized':
+      // User doesn't have permission to access the object
+		  console.log('storage/unauthorized');
+      break;
+
+    case 'storage/canceled':
+      // User canceled the upload
+		  console.log('storage/canceled');
+      break;
+
+    case 'storage/unknown':
+      // Unknown error occurred, inspect the server response
+		  console.log('storage/unknown');
+      break;
+  }
+});	
+	
+}
 
 /* Pone la primera letra en mayúsculas */
 
 function capitalizeFirstLetter(string) {
     		return string.charAt(0).toUpperCase() + string.slice(1);
 		}
-
-/* CONNECT WITH FIREBASE TO BRING INFO FROM SELECTED*/
-
-function setNameProf(id){
-	return firebase.database().ref('/prof/' + id).once('value').then(function(snapshot) {
-  	var lang = snapshot.val().idioma;
-	var name = snapshot.val().name;
-	var teach = snapshot.val().teach;
-	videourl = snapshot.val().videourl;
-	// Falta la foto	
-			
-	console.log(lang+" "+name+" "+teach+" "+videourl);	
-	document.getElementById("nameProf").innerHTML = name;
-	document.getElementById("langProf").innerHTML = lang;
-	document.getElementById("teachProf").innerHTML = teach;
-	
-	});
-}
-
-
 
 	
 /* ADD A TEACHER  */
@@ -341,9 +404,8 @@ function addTeacher(name, teach,  materia, lang, videourl, email, password, pass
 	precio: precio,
 	mediaclase: mediaclase,	
   	};
-	
+	console.log(foto);
 	addTeacherFoto(foto);  
-	loginProf(email,password);
 	
   	// Get a key for a new Post.
   	var newPostKey = firebase.database().ref().child('prof').push().key;
@@ -362,41 +424,29 @@ function addTeacher(name, teach,  materia, lang, videourl, email, password, pass
       		dialogPolyfill.registerDialog(dialog);
     	}
 		dialog.showModal();	
-	
-	
-	
 	}
 												   
 	);		
 }
+
+$("#profesorRegistradoButton").click(function(){
+		var dialog = document.querySelector('#profesorRegistrado');
+  		if (! dialog.showModal) {
+      		dialogPolyfill.registerDialog(dialog);
+    	}
+		dialog.close();
+})
 	
-/* LOGIN PROFESOR */
-
-function loginProf(email, password){
-	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-  	// Handle Errors here.
-  	var errorCode = error.code;
-  	var errorMessage = error.message;
-  	console.log("Ha fallado loginProfesor"+errorCode+""+errorMessage);
-});
-}
-
 /* ADD TEACHER'S PHOTO */
 
 function addTeacherFoto(foto){
 	
-	var file = new File([result], "", {type: "image"})
+	var file = new File([foto], "", {type: "image"})
 	// Create a root reference
 	var storageRef = firebase.storage().ref();
 	// Create a reference to 'mountains.jpg'
-	var mountainsRef = storageRef.child('foto.jpg');
-	// Create a reference to 'images/mountains.jpg'
-	var mountainImagesRef = storageRef.child('images/foto.jpg');
-
-// While the file names are the same, the references point to different files
-console.log(mountainsRef.name === mountainImagesRef.name);            // true
-console.log(mountainsRef.fullPath === mountainImagesRef.fullPath);    // false
-
+	var mountainsRef = storageRef.child('imagenes/fotos.jpg');
+	
 	mountainsRef.put(file).then(function(snapshot) {
   	console.log('Uploaded a blob or file!');
 });
@@ -425,31 +475,8 @@ function encodeImageFileAsURL(element) {
 function clickFilaProfesor(clicked_id){
 	$("#tablaContrataClase").delegate("td.patata", "click", function(){
 		var id = clicked_id;
-		console.log(id);
-		
-	//	if(hayUsuario() == true){ 
-
-		return firebase.auth().onAuthStateChanged(function(user) {
-  			if (user) {
-				var displayName = user.displayName;
-    			var email = user.email;
-				var uid = user.uid;
-    			window.location.href = "contrataClase.html?id="+id;		
-  			} else {
-    			alert("Debes estar registrado");
-  			}
-		});
-	//	}
-	});
-}
-
- 
-function hayUsuario(){
-	firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log("true");
-  } else {
-    console.log("false");
-  }
-});
+		console.log(id);	
+		window.location.href = "contrataClase.html?id="+id;		
+  	});
+	
 }
