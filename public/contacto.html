@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Teach me</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
+		<link rel="stylesheet" href="style.css">
+			
+	</head>
+<body>
+		
+<!--Main page -->		
+		
+<div class="mdl-layout mdl-js-layout">
+   <header class="mdl-layout__header">
+      <div class="mdl-layout-icon"></div>
+      <div class="mdl-layout__header-row">
+         <span class="mdl-layout__title">Teach me</span>
+         <span class="extraspace"> | </span>
+         <span class="extraspace"> Home </span>
+         
+         <div class="mdl-layout-spacer"></div>
+         <nav class="mdl-navigation">
+			 
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Iniciar sesión
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            
+            <button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaAlumno.html';">
+            Intranet
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            
+            <button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaProfesor.html';">
+            Hazte profesor
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            
+            <button id="areaProfesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='intranetProfesor.html';">
+            Área profesor
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->	
+            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Cerrar sesión
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         
+         	<span class="extraspace"> </span> 
+         	<!-- Accent-colored raised button -->	
+         	<button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+         	Regístrate
+         	<i class="button-righ-icon material-icons">account_circle</i>
+         	</button>
+         </nav>
+      </div>
+   </header>
+</div>	
+<div id="tablaProfesor">	
+	
+<h3> Contacta </h3>	
+<h6> Haznos llegar tus comentarios, sugerencias o incidencia  </h6>	
+<table>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<input class="mdl-textfield__input" type="text" id="addTeacherName">
+    		<label class="mdl-textfield__label" >Nombre</label>
+  			</div>
+		</td>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+				<input class="mdl-textfield__input" type="text" id="signupEmail">
+				<label class="mdl-textfield__label" >Email</label>
+	  		</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div class="mdl-textfield mdl-js-textfield">
+    		<textarea class="mdl-textfield__input" type="text" rows= "5" id="sample5" ></textarea>
+    		<label class="mdl-textfield__label" for="sample5">Escribe aquí tus comentarios...</label>
+			</div>
+		</td>
+	</tr>
+	</table>
+		<!-- Accent-colored raised button with ripple -->
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  Enviar
+</button>
+	
+</div>
+	
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<script>
+  	// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyCr2wfyL15rtEmQJsy-mGuc3URImSdNraQ",
+    		authDomain: "teachme-7ed11.firebaseapp.com",
+    		databaseURL: "https://teachme-7ed11.firebaseio.com",
+    		projectId: "teachme-7ed11",
+    		storageBucket: "teachme-7ed11.appspot.com",
+    		messagingSenderId: "147010117223"
+  		};
+  		firebase.initializeApp(config);
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+	<script type='text/javascript' src="functions.js"></script>			
+</body>
+
+</html>

@@ -44,8 +44,9 @@
 }
 
 #buscadorOut{
+	
 	position: absolute;
-	top: 1200px;
+	top: 1100px;
 	z-index: 100;
 	float: left;
 	justify-content: center;
@@ -68,7 +69,7 @@
 #displayClassesOut{
 	
 	position: absolute;
-	top: 1400px;
+	top: 1200px;
 	z-index: 100;
 	clear: both;
 	justify-content: center;
@@ -77,6 +78,16 @@
 	clear: left;
 	
 }
+
+
+#buscadorSelect{
+	font-size: 14px;
+}
+
+#addTeacherMateria{
+	font-size: 14px;
+}
+
 #ii{
 top: 2400px;
 }
@@ -116,12 +127,45 @@ top: 2400px;
 	justify-content: center;
 }
 
+#div3IntranetProfesor{
+	position: absolute;
+	top: 350px;
+	left: 200px;
+	justify-content: center;
+}
+
+
+#divClasesAlumnoTT{
+	
+	position: absolute;
+	top: 700px;
+	left: 200px;
+	width: 800px;
+	justify-content: center;
+}
+#divClasesAlumnoG{
+	position: absolute;
+	top: 1100px;
+	left: 600px;
+	height: 80px;
+	justify-content: center;
+}
+
+
 #div4ClasesAlumno{
 	position: absolute;
 	top: 1300px;
 	left: 200px;
 	justify-content: center;
 }
+
+#div4IntranetProfesor{
+	position: absolute;
+	top: 675px;
+	left: 200px;
+	justify-content: center;
+}
+
 
 #div5ClasesAlumno{
 	position: absolute;
@@ -137,8 +181,11 @@ top: 2400px;
 }
 
 #tablaContrataClase{
-	
+	border-style: dotted;
+	position: relative;
+	top: 40px;
 	width:1000px;
+	
 }
 
 #tablaContrataClase2{
@@ -161,25 +208,112 @@ top: 2400px;
 	
 }
 
+#cards{
+	
+}
+
 #card1{
 	position: absolute;
 	top: 700px;
-	left: 150px;
+	left: 80px;
 }
 
 #card2{
 	position: absolute;
 	top: 700px;
-	left: 500px;
+	left: 430px;
 }
 
 #card3{
 	position: absolute;
 	top: 700px;
-	left: 850px;
+	left: 780px;
 }
 
 #notaDesplegable2{
 	padding-left: 30px;
 }
-              
+         
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {	
+  color: #fff;
+  background:
+    url('ledge.jpg') bottom right 15% no-repeat #46B6AC;
+}
+
+.demo-card-square > .mdl-card__title.second {
+  color: #fff;
+  background:
+    url('p2.jpg') bottom right 15% no-repeat #46B6AC;
+}
+
+.demo-card-square > .mdl-card__title.third {
+  color: #fff;
+  background:
+    url('estudiando3 copia.jpg') bottom right 55% no-repeat #46B6AC;
+}
+
+#cssVal1{
+	position: absolute;
+	top: 650px;
+	left: 1000px;
+}
+
+#cssVal1{
+	position: absolute;
+	bottom: 10px;
+}
+
+#tablaFinalIndex{
+	
+	top: 150px;
+	bottom: 0px;
+	position: relative;
+	z-index: 100;
+	clear: both;
+	justify-content: center;
+	height: auto;
+	left: 100px;
+	width:1200px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

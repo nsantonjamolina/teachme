@@ -39,49 +39,66 @@
 </dialog>	
 	
 <!--Main page -->		
-<firebase-auth id="auth" app-name="teachme-7ed11"></firebase-auth>		
 <div class="mdl-layout mdl-js-layout">
    <header class="mdl-layout__header">
       <div class="mdl-layout-icon"></div>
       <div class="mdl-layout__header-row">
-         <span class="mdl-layout__title" onclick="window.location.href='index.html'">Teach me</span>
-         <span class="extraspace">  </span>
-         <span class="extraspace">  </span>
+         <span class="mdl-layout__title">Teach me</span>
+         <span class="extraspace"> | </span>
+         <span class="extraspace" onclick="location.href='index.html';"> Home </span>
+         
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
 			 
-<span class="extraspace"> </span>
-<a style="padding-right: 25px" href="areaAlumno.html"> 
-	<button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-Intranet
-		<i class="button-righ-icon material-icons">account_circle</i>
-	</button>
-</a> 
-			 
-<!-- Accent-colored raised button -->
-<span class="extraspace"> </span>
-<a href="hp.html">
-	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-Hazte profesor!
-		<i class="button-righ-icon material-icons">account_circle</i>
-	</button>
-</a>	
-<span class="extraspace"> </span> 
-<!-- Accent-colored raised button -->	
-<a href ="index.html"></a>
-	<button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-Sign out
-		<i class="button-righ-icon material-icons">account_circle</i>
-	</button>
-</a>
-         
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Iniciar sesión
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
             
+            <button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaAlumno.html';">
+            Intranet
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            
+            <button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaProfesor.html';">
+            Hazte profesor
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
+            
+            <button id="areaProfesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='intranetProfesor.html';">
+            Área profesor
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+            
+            <span class="extraspace"> </span> 
+            <!-- Accent-colored raised button -->	
+            <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            Cerrar sesión
+            <i class="button-righ-icon material-icons">account_circle</i>
+            </button>
+         
+         	<span class="extraspace"> </span> 
+         	<!-- Accent-colored raised button -->	
+         	<button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+         	Regístrate
+         	<i class="button-righ-icon material-icons">account_circle</i>
+         	</button>
          </nav>
       </div>
    </header>
-   <div class="mdl-layout__drawer">
-   </div>
-</div>
+</div>	
 <div id="div1ClasesAlumno">
 	<h5>Conoce a tu profesor</h5>
 	<h6>Revisa el calendario, elige un fecha y haz click en guardar</h6>
@@ -109,23 +126,19 @@ Sign out
 	</table>
 </div>
 	
-<div id="div3ClasesAlumno">
-	<style>
-		input {left: 100px; }
-		button {left: 400px; }
-
-	</style>
-	<input id="1" type="date"/>
+<div id="divClasesAlumnoG">
+	
 	<!-- Accent-colored raised button with ripple -->
 	<button id="2" onclick=user(); class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   		Guardar
 	</button>
+	<span></span>
 	<button id="3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   		Volver
 	</button>
 </div>	
 	
-<div class="timetable"></div>		
+<div id="divClasesAlumnoTT" class="timetable"></div>		
 <span></span>
 
 </body>
@@ -157,17 +170,52 @@ Sign out
 			var name = capitalizeFirstLetter(snapshot.val().name);
 			var teach = capitalizeFirstLetter(snapshot.val().teach);
 			var videourl = snapshot.val().videourl;
+			var videourl2 = "<iframe width='350' height='315' src="+videourl+" frameborder='0' gesture='media' allowfullscreen></iframe>";
 		 	
 					
 		document.getElementById("nameProf").innerHTML = name;
 		document.getElementById("langProf").innerHTML = lang;
 		document.getElementById("teachProf").innerHTML = teach;
-		document.getElementById("video").innerHTML = videourl;
+		document.getElementById("video").innerHTML = videourl2;
 		});
 		
 		function capitalizeFirstLetter(string) {
     		return string.charAt(0).toUpperCase() + string.slice(1);
 		}
+	</script>
+	
+	<script>
+		var timetable = new Timetable();
+		timetable.setScope(9,15);
+		timetable.addLocations(['Lunes 1', 'Martes 2', 'Miércoles 3', 'Jueves 4', 'Viernes 5', 'Sábado 6', 'Domingo 7']);
+		// Añadimos a la tabla
+		//timetable.addEvent('Ocupado',dia, new Date(2017,8,19,inicio,00), new Date(2017,8,19,fin,00));
+		timetable.addEvent('Libre', 'Lunes 1', new Date(2015,7,17,9,30), new Date(2015,7,17,10,30));
+		timetable.addEvent('Libre', 'Lunes 1', new Date(2015,7,17,10,30), new Date(2015,7,17,11,30));
+		timetable.addEvent('Ocupado', 'Lunes 1', new Date(2015,7,17,11,30), new Date(2015,7,17,12,30));
+		timetable.addEvent('Libre', 'Lunes 1', new Date(2015,7,17,12,30), new Date(2015,7,17,13,30));
+		timetable.addEvent('Libre', 'Martes 2', new Date(2015,7,17,9,30), new Date(2015,7,17,10,30));
+		timetable.addEvent('Libre', 'Martes 2', new Date(2015,7,17,10,30), new Date(2015,7,17,11,30));
+		timetable.addEvent('Ocupado', 'Martes 2', new Date(2015,7,17,11,30), new Date(2015,7,17,12,30));
+		timetable.addEvent('Libre', 'Martes 2', new Date(2015,7,17,12,30), new Date(2015,7,17,13,30));
+		timetable.addEvent('Libre', 'Miércoles 3', new Date(2015,7,17,9,30), new Date(2015,7,17,10,30));
+		timetable.addEvent('Ocupado', 'Miércoles 3', new Date(2015,7,17,10,30), new Date(2015,7,17,11,30));
+		timetable.addEvent('Libre', 'Miércoles 3', new Date(2015,7,17,11,30), new Date(2015,7,17,12,30));
+		timetable.addEvent('Libre', 'Miércoles 3', new Date(2015,7,17,12,30), new Date(2015,7,17,13,30));
+		timetable.addEvent('Libre', 'Jueves 4', new Date(2015,7,17,9,30), new Date(2015,7,17,10,30));
+		timetable.addEvent('Libre', 'Jueves 4', new Date(2015,7,17,10,30), new Date(2015,7,17,11,30));
+		timetable.addEvent('Ocupado', 'Jueves 4', new Date(2015,7,17,11,30), new Date(2015,7,17,12,30));
+		timetable.addEvent('Libre', 'Jueves 4', new Date(2015,7,17,12,30), new Date(2015,7,17,13,30));	
+		timetable.addEvent('Libre', 'Viernes 5', new Date(2015,7,17,9,30), new Date(2015,7,17,10,30));
+		timetable.addEvent('Libre', 'Viernes 5', new Date(2015,7,17,10,30), new Date(2015,7,17,11,30));
+		timetable.addEvent('Ocupado', 'Viernes 5', new Date(2015,7,17,11,30), new Date(2015,7,17,12,30));
+		timetable.addEvent('Libre', 'Viernes 5', new Date(2015,7,17,12,30), new Date(2015,7,17,13,30));
+		var renderer = new Timetable.Renderer(timetable);
+		renderer.draw('.timetable');
+				
+		
+		
+		
 	</script>
 	<!--script>
 
@@ -275,6 +323,7 @@ Sign out
 		
 		function user(){
 		
+		
 		var user = firebase.auth().currentUser;
 		
 		if (user !== null) {
@@ -291,12 +340,6 @@ Sign out
 			
 		} else {			
 			console.log("Sorry, no hay user");	
-	/*	$("#tablaContrataClase").hide();	
-		$("#intranetButton").hide();
-		$("#logoutButton").hide();
-		$("#areaProfesorButton").hide();
-		// Cuando cargo, si no tengo user...cierro el modal
-		$("#logoutButton").click();	*/
 		}};
 
 	/* ADD A CLASS  */

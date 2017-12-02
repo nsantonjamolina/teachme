@@ -1,0 +1,40 @@
+<dialog id="loginDialog" class="mdl-dialog">
+   <h5 class="mdl-dialog__title">Iniciar sesión</h5>
+   <div class="mdl-dialog__content">
+	   <p id="loginError"></p>
+	   
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" id="loginemail">
+    <label class="mdl-textfield__label">Email</label>
+  </div>
+
+	   <!-- Simple Textfield -->
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="password" id="loginpassword">
+    <label class="mdl-textfield__label">Password</label>
+  </div>
+	   
+	<div class="mdl-textfield mdl-js-textfield">	   
+  		<label for="eprofesorcb">
+  			<input type="checkbox" id="eprofesorcb" class="mdl-checkbox__input">
+  			<span class="mdl-checkbox__label">Eres profesor?</span>
+  		</label>	   
+	   </div>
+
+   </div>
+   <div class="mdl-dialog__actions">
+       <!-- Colored raised button -->
+		<button id="loginbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Iniciar sesión</button>
+	</div>
+	<div class="mdl-dialog__actions">
+	   <!-- Colored raised button -->
+		<button id="recoverPassword" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+			Olvidé mi contraseña</button>
+	   <!-- MDL Spinner Component -->
+	</div>	
+	<div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
+</dialog>

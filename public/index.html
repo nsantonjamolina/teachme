@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Teach me</title>
+		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
 		<link rel="stylesheet" href="style.css">
-		
 	</head>
 	
 	
 <body>
-
+	
 <!--Login dialog -->		
 		
 <dialog id="loginDialog" class="mdl-dialog">
-   <h4 class="mdl-dialog__title">Sign in</h4>
+   <h5 class="mdl-dialog__title">Iniciar sesión</h5>
    <div class="mdl-dialog__content">
 	   <p id="loginError"></p>
 	   
@@ -22,18 +23,18 @@
 
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="loginemail">
-    <label class="mdl-textfield__label" for="sample1">Email</label>
+    <label class="mdl-textfield__label">Email</label>
   </div>
 
 	   <!-- Simple Textfield -->
 
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="password" id="loginpassword">
-    <label class="mdl-textfield__label" for="sample1">Password</label>
+    <label class="mdl-textfield__label">Password</label>
   </div>
 	   
 	<div class="mdl-textfield mdl-js-textfield">	   
-  		<label for="checkbox-2">
+  		<label for="eprofesorcb">
   			<input type="checkbox" id="eprofesorcb" class="mdl-checkbox__input">
   			<span class="mdl-checkbox__label">Eres profesor?</span>
   		</label>	   
@@ -43,7 +44,7 @@
    <div class="mdl-dialog__actions">
        <!-- Colored raised button -->
 		<button id="loginbutton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-			Sign in</button>
+			Iniciar sesión</button>
 	</div>
 	<div class="mdl-dialog__actions">
 	   <!-- Colored raised button -->
@@ -51,8 +52,7 @@
 			Olvidé mi contraseña</button>
 	   <!-- MDL Spinner Component -->
 	</div>	
-	   <div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
-   </div>
+	<div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active"></div>
 </dialog>
 
 <!--Signup dialog -->		
@@ -66,26 +66,26 @@
 
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="signupName">
-    <label class="mdl-textfield__label" for="sample1">Nombre</label>
+    <label class="mdl-textfield__label" >Nombre</label>
   </div>
 
 	   <!-- Simple Textfield -->
 
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="text" id="signupEmail">
-    <label class="mdl-textfield__label" for="sample1">Email</label>
+    <label class="mdl-textfield__label" >Email</label>
   </div>
 
 	   <!-- Simple Textfield -->
 
   <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="password" id="signupPassword">
-    <label class="mdl-textfield__label" for="sample1">Password</label>
+    <label class="mdl-textfield__label" >Password</label>
   </div>
 	   	
 <div class="mdl-textfield mdl-js-textfield">
     <input class="mdl-textfield__input" type="password" id="signupPassword2">
-    <label class="mdl-textfield__label" for="sample1">Repite password</label>
+    <label class="mdl-textfield__label" >Repite password</label>
   </div>
 
 	   
@@ -103,11 +103,6 @@
 </dialog>
 	
 		
-<!--div class="login-cover">
-   <!-- MDL Spinner Component -->
-   <!--div class="page-loader mdl-spinner mdl-js-spinner is-active"></div>
-</div>
-		
 <!--Main page -->		
 <div class="mdl-layout mdl-js-layout">
    <header class="mdl-layout__header">
@@ -118,98 +113,77 @@
          <span class="extraspace"> Home </span>
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
+			 <span class="extraspace"> </span>
+            <!-- Accent-colored raised button -->
+            <span class="extraspace"> </span>
             <!-- Accent-colored raised button -->
             <span class="extraspace"> </span>
             <button id="logginButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Login
+            Iniciar sesión
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
             <!-- Accent-colored raised button -->
             <span class="extraspace"> </span>
-            <a href="areaAlumno.html"> 
-            <button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            
+            <button id="intranetButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaAlumno.html';">
             Intranet
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
-            </a> 
+            
             <span class="extraspace"> </span> 
             <!-- Accent-colored raised button -->
             <span class="extraspace"> </span>
-            <a href="areaProfesor.html">
-            <button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Hazte profesor!
+            
+            <button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaProfesor.html';">
+            Hazte profesor
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
-            </a>	
+            
             <span class="extraspace"> </span> 
             <!-- Accent-colored raised button -->
             <span class="extraspace"> </span>
-            <a href="intranetProfesor.html">
-            <button id="areaProfesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            
+            <button id="areaProfesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='intranetProfesor.html';">
             Área profesor
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
-            </a>	
+            
             <span class="extraspace"> </span> 
             <!-- Accent-colored raised button -->	
             <button id="logoutButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            Sign out
+            Cerrar sesión
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
-         </nav>
-         <span class="extraspace"> </span> 
-         <!-- Accent-colored raised button -->	
-         <button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-         Regístrate
-         <i class="button-righ-icon material-icons">account_circle</i>
-         </button>
+         
+         	<span class="extraspace"> </span> 
+         	<!-- Accent-colored raised button -->	
+         	<button id="registrateButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+         	Regístrate
+         	<i class="button-righ-icon material-icons">account_circle</i>
+         	</button>
          </nav>
       </div>
    </header>
-   <div class="mdl-layout__drawer">
-   </div>
 </div>	
 	<!--  Body  -->
+	
+<!-- The Modal -->
 
-<div id="imageheader" class="mdl-layout mdl-js-layout mdl-grid">		
-</div>
+
+<div id="imageheader" class="mdl-layout mdl-js-layout mdl-grid"></div>
 
 <!-- Square card -->
-
-<style>
-.demo-card-square.mdl-card {
-  width: 320px;
-  height: 320px;
-}
-.demo-card-square > .mdl-card__title {
-  color: #fff;
-  background:
-    url('ledge.jpg') bottom right 15% no-repeat #46B6AC;
-}
-
-.demo-card-square > .mdl-card__title.second {
-  color: #fff;
-  background:
-    url('pexels-photo-509799.jpg') bottom right 15% no-repeat #46B6AC;
-}
-
-.demo-card-square > .mdl-card__title.third {
-  color: #fff;
-  background:
-    url('ledge.jpg') bottom right 15% no-repeat #46B6AC;
-}
-	
-	
-</style>
-
+<div id="dialog" title="Basic dialog">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
+<div id="cards">
 <div id ="card1" class="demo-card-square mdl-card mdl-shadow--2dp">
   <div class="mdl-card__title mdl-card--expand">
     <h2 class="mdl-card__title-text">Regístrate</h2>
   </div>
 	 
   <div class="mdl-card__supporting-text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Aenan convallis.
+    Simplemente te hará falta un correo electrónico y un password para poder registrarte.
   </div>
   <!--div class="mdl-card__actions mdl-card--border">
     <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -225,8 +199,7 @@
 	 
   </div>
   <div class="mdl-card__supporting-text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Aenan convallis.
+    Una vez te haya registrado, busca a tu profesor. Pon la materia para encontrar resultados similares.
   </div>
   <!--div class="mdl-card__actions mdl-card--border">
     <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -240,8 +213,7 @@
     <h2 class="mdl-card__title-text">Programa una clase</h2>
   </div>
   <div class="mdl-card__supporting-text">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Aenan convallis.
+    Reserva un horario y aprende!
   </div>
   <div class="mdl-card__actions mdl-card--border">
     <a onclick="empezar()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -249,7 +221,7 @@
     </a>
   </div>
 </div>
-
+</div>	
 		
 
 <div id="buscadorOut" class="mdl-layout mdl-js-layout mdl-grid">
@@ -257,29 +229,20 @@
 			
 
 	<!--form action="#"-->
-<tr>
-	<td>
+
   		<div id="buscadorOut1" class="mdl-textfield mdl-js-textfield">
 		
     		<input class="mdl-textfield__input" type="text" id="buscadorText">
-    		<label class="mdl-textfield__label" for="sample1">Qué quieres aprender?</label>
+    		<label class="mdl-textfield__label" >Qué quieres aprender?</label>
 			<!-- Raised button -->
 		</div>	
-	</td>
-	<td>	
 		<div id="buscadorOut2" class="mdl-textfield mdl-js-textfield">
 			<button id="btnBusca" class="mdl-button mdl-js-button mdl-button--raised">
   				Buscar
 			</button>
   		</div>
-	</td>
-	<td>
+
 	<div id="buscadorOut3" class="mdl-textfield mdl-js-textfield">
-			<style>
-				select{
-					font-size: 14px;
-				}
-			</style>
 		
 			<select  name="OS" id="buscadorSelect">
    				<option selected value="0"> Elige una materia </option>
@@ -295,8 +258,8 @@
        			<option value="Costura">Costura</option> 
 			</select>
 	</div>
-</td>
-</tr>		
+
+		
 	<!--/form-->
 </div>
 	
@@ -314,11 +277,39 @@
 			
 		</tbody>
 	</table>
-</div>
-<img id=ii></img>
-</script>
 
 	
+
+<table id="tablaFinalIndex">
+<tr>
+	<td>
+		<p>
+    		<a href="http://jigsaw.w3.org/css-validator/check/referer">
+        		<img style="border:0;width:88px;height:31px"
+            	src="http://jigsaw.w3.org/css-validator/images/vcss"
+            	alt="¡CSS Válido!" />
+    		</a>
+		</p>	
+	</td>
+	<td>
+		<p>
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">
+    			<img style="border:0;width:88px;height:31px"
+        		src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+        		alt="¡CSS Válido!" />
+    		</a>
+		</p>	
+	</td>
+	<td>
+		<p style="color:#666666;" onclick="location.href='contacto.html';">Contacto</p>
+	</td>	
+	<td>
+		<a style="text-decoration:none;" href="https://www.w3schools.com/html/"><p style="color:#666666;">Quiénes somos?</p></a>
+	</td>
+</tr>
+</table>
+</div>	
+
 		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 		<script>
   	// Initialize Firebase

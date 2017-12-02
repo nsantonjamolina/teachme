@@ -10,7 +10,7 @@ $(document).ready(
 				$("#logoutButton").show();
 				$("#profesorButton").show();
 				$("#areaProfesorButton").hide();
-				$("#logoutButton").show();
+				//$("#logoutButton").show();
 				$("#logginButton").hide();
 				$("#registrateButton").hide();
 			} else {
@@ -22,11 +22,12 @@ $(document).ready(
 				$("#logginButton").show();
 				$("#registrateButton").show();
 				$("#profesorButton").show();
-				$("#logoutButton").click();	
+				//$("#logoutButton").click();	
 			}
 		})
 	}
 );
+
 
 
 var u;
@@ -297,16 +298,37 @@ $("#btnBusca").click(
 				var foto = snapshot.child("foto").val();
 				
 				
-					
+				
+				switch (idioma) {
+    			case "Español":
+        			idioma = "<img src='Flags/flags/32/Spain.png'>";
+					keykey ="<img src='barbassombrero.png' height='50' width='50'>"	
+        		break;
+				case "Ingles":
+        			idioma = "<img src='Flags/flags/32/UnitedKingdom.png'>";
+					keykey ="<img src='barbas.png' height='50' width='50'>"
+        		break;
+					case "Català":	
+        			idioma = "<img src='Flags/flags/32/Catalonia.png'>";
+					keykey ="<img src='barbascalvo.png' height='50' width='50'>"
+        		break;
+				case "Ruso":
+        			idioma = "<img src='Flags/flags/32/Russian Federation.png'>";
+					keykey ="<img src='bigot.png' height='50' width='50'>"
+        		break;
+    			
+       
+}
 				if(buscadorText == teach | buscadorSelect == materia ){	
 				contador++;	
+					
 
-				var keykey = key.concat(key);
+				//var keykey = key.concat(key);
 					
-				traeFoto(keykey);
+			//	traeFoto(keykey);
 					
 					
-				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+name+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+teach+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'><img id="+keykey+" height='42' width='42'></img></td></tr>");
+				$("#tabla").append("<tr><td id="+key+" onClick="+"clickFilaProfesor(this.id)"+" class='patata mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+name+"</h6></td><td id="+"trteach"+" class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+teach+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'>"+idioma+"</td><td class='mdl-data-table__cell--non-numeric'>"+keykey+"</td></tr>");
 				}
 				
 			}); 	
@@ -315,7 +337,7 @@ $("#btnBusca").click(
 				//Estoy hay que arreglarlo
 				//alert("¡Lo siento, actualmente no disponemos de ningún profesor de "+teach+"!");	
 			}else{
-				$("#displayClassesOut").show();
+				$("#tablaContrataClase").show();
 			}
 		} else {
 			// Nos alerta y nos lanza el diálogo de login

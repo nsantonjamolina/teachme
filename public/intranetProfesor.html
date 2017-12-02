@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Teach me</title>
+		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-indigo.min.css" />
 		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>	
@@ -22,13 +24,13 @@
 	
 	 
     <input class="mdl-textfield__input" type="text" id="editaMateria">
-    <label id="etiquetaEdita" class="mdl-textfield__label" for="sample1"></label>
+    <label id="etiquetaEdita" class="mdl-textfield__label" ></label>
   </div>
 
 <div class="mdl-textfield mdl-js-textfield">
 	
     <input class="mdl-textfield__input" type="text" id="editaMateria2">
-    <label id="etiquetaEdita2" class="mdl-textfield__label" for="sample1"></label>
+    <label id="etiquetaEdita2" class="mdl-textfield__label" ></label>
   </div>
 	   
 	   
@@ -47,9 +49,9 @@
    <header class="mdl-layout__header">
       <div class="mdl-layout-icon"></div>
       <div class="mdl-layout__header-row">
-         <span class="mdl-layout__title" onclick="window.location.href='index.html'">Teach me</span>
-         <span class="extraspace">  </span>
-         <span class="extraspace">  </span>
+         <span class="mdl-layout__title">Teach me</span>
+         <span class="extraspace"> | </span>
+         <span class="extraspace" onclick="location.href='index.html';"> Home </span>
          <div class="mdl-layout-spacer"></div>
          <nav class="mdl-navigation">
 			
@@ -63,12 +65,12 @@
 			 
             <!-- Accent-colored raised button -->
 			 <span class="extraspace"> </span>
-            	<a href="hp.html">
-			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            	
+			 	<button id="profesorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="location.href='areaProfesor.html';">
 				Hazte profesor!
             		<i class="button-righ-icon material-icons">account_circle</i>
             	</button>
-				</a>	
+					
 			<span class="extraspace"> </span> 
 			
 			 <!-- Accent-colored raised button -->	
@@ -76,7 +78,7 @@
             Sign out
             <i class="button-righ-icon material-icons">account_circle</i>
             </button>
-         </nav>
+         
 		  
 		  <span class="extraspace"> </span> 
 			
@@ -88,52 +90,59 @@
          </nav>
       </div>
    </header>
-   <div class="mdl-layout__drawer">
-   </div>
+   
+   
 </div>
 
 <div id="div1ClasesAlumno">
 	<h4>Datos del profesor</h4>
-	<button id="editaProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Edita tus datos</h8></button>
-	<button id="borraProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"><h8>Borra tu cuenta</h8></button>
+	<button id="editaProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="font-size:14px;">Edita tus datos</button>
+	<button id="borraProf" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="font-size:14px;">Borra tu cuenta</button>
 </div>	
 	
 <div id="div2ClasesAlumno">
+	<h4>Tu valoración actual es: 4/5</h4>
+	<!--img src = "4sobre5.png"-->
+</div>
+	
+<div id="div3IntranetProfesor">
+	<h4>Solicitudes</h4>
+	<table  class="mdl-data-table mdl-js-data-table">
+  		<thead>
+			<tr>
+      			<th class="mdl-data-table__cell--non-numeric">Fecha</th>
+      			<th class="mdl-data-table__cell--non-numeric">Materia</th>
+				<th class="mdl-data-table__cell--non-numeric">Aceptar</th>
+				<th class="mdl-data-table__cell--non-numeric">Rechazar</th>
+    		</tr>
+  		</thead>
+  		<tbody id="solicitudes">
+  		</tbody>
+	</table>
+	
+</div>	
+	
+<div id="div4IntranetProfesor">
 	<h4>Próximas clases </h4>
 	<table  class="mdl-data-table mdl-js-data-table">
   		<thead>
 			<tr>
-      			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
       			<th class="mdl-data-table__cell--non-numeric">Fecha</th>
       			<th class="mdl-data-table__cell--non-numeric">Teach</th>
 				<th class="mdl-data-table__cell--non-numeric">Idioma</th>
+				<th class="mdl-data-table__cell--non-numeric">Nombre alumno</th>
     		</tr>
   		</thead>
   		<tbody id="proxClas">
   		</tbody>
 	</table>
 </div>
-	
-<!--div id="div3ClasesAlumno">
-	<h4>Clases realizadas</h4>
-	<table id="delegateTable" class="mdl-data-table mdl-js-data-table">
-  		<thead>
-			<tr>
-      			<th class="mdl-data-table__cell--non-numeric">Profesor</th>
-				<th class="mdl-data-table__cell--non-numeric">Fecha</th>
-      			<th class="mdl-data-table__cell--non-numeric">Teach</th>
-				<th class="mdl-data-table__cell--non-numeric">Valora a tu profesor</th>
-    		</tr>
-  		</thead>
-  		<tbody id="finClas">
-  		</tbody>
-	</table>
-</div-->
-	
 
 	
-</body>
 	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type='text/javascript' src="functions.js"></script>
+	
 	<script>
   	// Initialize Firebase
   		var config = {
@@ -146,7 +155,7 @@
   		};
   		firebase.initializeApp(config);
 	</script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 			
 	<script>
 	// Necesito que de alguna manera me pasen el id en la URL
@@ -208,17 +217,57 @@ $("#editaGuardarButton").click(function(){
   
 });		
 		
+</script>
+<script>
+	$(document).ready(function(){
+				
+			var user = firebase.auth().currentUser;
+			var clases = ["GHGHGH","-Kyz3LqCQskBkVtKsN5S"];
+			var aceptadas = ["DHDHDH","-KxwKIH8zdQd_yL98Djb"]
+		
+		
+			
+			var ref = firebase.database().ref();
+			ref.once("value").then(function(snapshot){
+				
+				while (clases.length){
+					
+						idClase = clases.pop();
+						
+						
+						var materia = snapshot.child('clases/'+idClase+'/materia').val();
+						var fecha = snapshot.child('clases/'+idClase+'/fecha').val();
+						
+				
+					
+							
+						$("#solicitudes").append("<tr><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+fecha+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Aceptar</button></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><button class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Rechazar</button></td></tr>");
+					
+					
+		};
+		});
+		
+		var ref = firebase.database().ref();
+			ref.once("value").then(function(snapshot){
+				
+				while (aceptadas.length){
+					
+						idClase = aceptadas.pop();
+						
+						
+						var materia = snapshot.child('clases/'+idClase+'/materia').val();
+						var fecha = snapshot.child('clases/'+idClase+'/fecha').val();
+						var idioma = snapshot.child('clases/'+idClase+'/idioma').val();
+						var nombreAlu = snapshot.child('clases/'+idClase+'/nombreAlu').val();
+						
+					
+					$("#proxClas").append("<tr><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+fecha+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+materia+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+idioma+"</h6></td><td class='mdl-data-table__cell--non-numeric' style='text-align: center;'><h6>"+nombreAlu+"</h6></td></tr>");
+					
+					
+		};
+		});
+	});
 	
-	
-	
-	
-	
-	
-	
-	</script>
-	
-	<script>		
-	</script>
-
-	<script type='text/javascript' src="functions.js"></script>		
+</script>	
+</body>
 </html>
